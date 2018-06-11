@@ -1,0 +1,23 @@
+
+
+cd $publisher
+tail -f error.log
+tail -f error.log |grep "mojeupc-csr"
+
+
+less error.log
+go to last >> shift+g
+clear command ?? ESC ESC
+backward search>> ?
+forward search>> /
+
+next occurance n
+come out >> ESC ESC :q
+
+
+cd /u01/appl/wcms/publish/crx-quickstart/logs
+ tail -f *.log |grep -i put |grep -v -i output
+
+tail -f mycare.log
+
+

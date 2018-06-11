@@ -1,0 +1,5 @@
+if variable does not have spectial char like '-'
+use
+	${header.cusomerId}
+otherwise
+	${header['user-agent']}

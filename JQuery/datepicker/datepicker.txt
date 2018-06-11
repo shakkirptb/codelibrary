@@ -1,0 +1,20 @@
+    $("#billAddrDate").datepicker({
+        beforeShow: function(input, inst) {
+            var dp = $(inst.dpDiv);
+            var offset = $(input).outerWidth(false) - dp.outerWidth(false);
+            dp.css('margin-left', offset);
+        },
+        dateFormat: 'dd.mm.yy',
+        buttonimage: '/content/dam/myupc/calander.png',
+        nextText: 'Later',
+        showAnim: "slideDown",
+        dayNamesMin: ["S", "M", "T", "W", "T", "F", "S"],
+        buttonImageOnly: true,
+        firstDay: 1,
+        maxDate: "+1y",
+        minDate: 0,
+    });
+
+
+<input type="text" name="bill_address_date" class="row bill-address-txtbox1 cal-img-date-picker cal-img  bill-address-text billing-address-border new-left-padding pr-5"
+								id="billAddrDate" readonly="readonly" ></input>	

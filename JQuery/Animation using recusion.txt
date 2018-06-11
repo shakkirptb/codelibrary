@@ -1,0 +1,51 @@
+function animateBubble(){
+	$('.bubbleGraphContainer:visible').find('stop').each(function(){
+	      recurseWithDelay($(this),100,parseFloat($(this).attr('offset').slice(0,-1)))
+	});
+}
+function recurseWithDelay($element,startFrom,stopAt){
+//SHAKKIR
+	setTimeout(function(){
+	  if(startFrom >= stopAt ){
+		  startFrom=startFrom-1;
+	    	recurseWithDelay($element,startFrom,stopAt)
+	    	$element.attr('offset',startFrom+'%');
+	  }else{
+		  $element.attr('offset',stopAt+'%');
+	  }	
+  },40);
+}
+
+
+
+
+
+------------
+//fadeIn(document.getElementsByTagName("BODY")[0]);
+fadeOut(document.getElementsByTagName("BODY")[0]);
+setOpacity = function setOpacity(ele,value){ele.style.opacity=value;}
+function fadeIn($element){
+  $element.style.display="block";
+  AnimationControl($element,1,0,0.1,function(){$element.style.display="block";},setOpacity)
+}
+function fadeOut($element){
+  $element.style.display="block";
+  AnimationControl($element,1,0,-0.1,function(){$element.style.display="none";},setOpacity)
+}
+
+function AnimationControl($element,startFrom,stopAt,step,complete,action){
+  recurseWithDelay($element,startFrom,stopAt,step,complete,action)
+}
+function recurseWithDelay($element,startFrom,stopAt,step,complete,action){
+//SHAKKIR
+
+	window.setTimeout(function(){
+	  if(startFrom >= stopAt ){
+		  startFrom=startFrom+step;
+	    	recurseWithDelay($element,startFrom,stopAt,step,complete,action)
+	    	action($element,startFrom);
+	  }else{
+		  complete();
+	  }	
+  },40);
+}

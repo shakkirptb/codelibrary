@@ -1,0 +1,5 @@
+1. install R Software
+2. install RStudio
+3. open R Studio >global options >packages 
+	change CRAN mirror to secure "China (Beijing) [https] - TUNA Team, Tsinghua University"
+

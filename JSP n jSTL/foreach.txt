@@ -1,0 +1,12 @@
+JSTL c:forEach varStatus properties
+I keep forgetting what the properties of the varStatus object are for the JSTL forEach so here they are:
+
+Property	Getter	Description
+current	getCurrent()	The item (from the collection) for the current round of iteration
+index	getIndex()	The zero-based index for the current round of iteration
+count	getCount()	The one-based count for the current round of iteration
+first	isFirst()	Flag indicating whether the current round is the first pass through the iteration
+last	isLast()	Flag indicating whether the current round is the last pass through the iteration
+begin	getBegin()	The value of the begin attribute
+end	getEnd()	The value of the end attribute
+step	getStep()	The value of the step attribute

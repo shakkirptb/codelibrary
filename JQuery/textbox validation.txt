@@ -1,0 +1,13 @@
+    $("#iccidverifynum").bind('keypress input', function (e) {
+    	var a=[8,9,13,17,18,33,34,35,36,37,38,39,40,45,46];
+
+        keyCode=e.keyCode;
+        if (!($.inArray(keyCode, a) >= 0)) {
+           
+        	var regex = new RegExp("^[a-zA-Z0-9]+$");
+	       var k= String.fromCharCode(!e.charCode ? e.which : e.charCode);
+	        if (!regex.test(k)) {
+	           return false;
+	        }
+        }
+    });

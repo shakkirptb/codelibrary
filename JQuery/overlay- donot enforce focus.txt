@@ -1,0 +1,7 @@
+//for <select to work  on overlays>
+var enforceModalFocusFn = $.fn.modal.Constructor.prototype.enforceFocus;
+$.fn.modal.Constructor.prototype.enforceFocus = function() {};
+$confModal.on('hidden', function() {
+    $.fn.modal.Constructor.prototype.enforceFocus = enforceModalFocusFn;
+});
+$confModal.modal({ backdrop : false });

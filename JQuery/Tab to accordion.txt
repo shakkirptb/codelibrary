@@ -1,0 +1,73 @@
+$(function(){
+	$(window).resize(function(e){
+		updateUI();
+	});
+	updateUI();
+});
+function updateUI(){
+	var breakingWidth=480;
+	if(!isMobile && $(window).width() <= breakingWidth){//480){
+		// mobile view instructions
+		tabsToAccordions();
+		isMobile=true;
+	} else if(isMobile && $(window).width() > breakingWidth) {
+		// desktop view instructions
+		accordionsToTabs();
+	    setTimeout(function() {
+	        $('.tabAccHeader').first().trigger("click");
+	    }, 1000);
+		isMobile=false;
+	}
+}
+function tabsToAccordions(){
+	console.log("tabsToAccordions");
+	var accWrapper='<div class="accFromTabWrapper row">';
+	accWrapper +='<div id="accFromTab" class="panel-group row accordianPanelGroup">';
+	accWrapper +='</div></div>';	
+	var $accordionParent=$(accWrapper);
+	var accordionItem = '<div class="accFromTabPanel panel panel-default">';
+		//accordian  header
+		accordionItem += '<div class="panel-heading">';
+		accordionItem += '<h4 class="panel-title">';
+			accordionItem += '<div data-parent="#accFromTab" data-toggle="collapse" class="tabAccHeader accordion-toggle collapsed">';
+			accordionItem += '<span class="expandIcon"></span>';
+		accordionItem += '</div></h4></div>';
+		//accordian body
+		accordionItem+='<div class="panel-body removePanelBodyPadding panel-collapse collapse">';
+			accordionItem += '<div class="accBody"></div>';
+		accordionItem +='</div></div>';
+	var $accordionItem=$(accordionItem);
+	
+	$('.scrollabletab .tabAccHeader').each(function(index){
+		var newAccordionItem=$accordionItem.clone();
+		newAccordionItem.attr('id','accFromTabPanel'+index);
+		newAccordionItem.find('.accordion-toggle').attr('data-target','#accbody'+index);
+		newAccordionItem.find('.panel-body').attr('id','accbody'+index);
+		var $this=$(this);
+		var tabPaneId=$this.find('a').attr('href');
+		newAccordionItem.find('.tabAccHeader').prepend($this.children());
+		var $tabBody =$(tabPaneId);
+		newAccordionItem.find('.accBody').append($tabBody.children());
+		$accordionParent.find('>.panel-group').append(newAccordionItem);
+	});
+	$('.TabOuter').first().after($accordionParent);
+	$('.TabOuter').hide();
+	$('.tab-content').hide();
+	accordionsMade=true;
+	
+}
+function accordionsToTabs(){
+	console.log("accordionsToTabs");
+	$('.accFromTabWrapper .accFromTabPanel').each(function(index){
+		var $this=$(this);
+		var $accHeader=$this.find('.tabAccHeader');
+		var $tabHeader=$('.scrollabletab .tabAccHeader').eq(index);
+		$tabHeader.prepend($accHeader.children()).find('.expandIcon').remove();
+		var tabPaneId=$tabHeader.find('a').attr('href');
+		var $tabBody =$(tabPaneId);
+		$tabBody.prepend($this.find('.accBody').children());
+	});
+	$('.TabOuter').show();
+	$('.tab-content').show();
+	$('.accFromTabWrapper').remove();
+}

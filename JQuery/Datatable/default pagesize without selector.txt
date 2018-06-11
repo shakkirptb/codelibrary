@@ -1,0 +1,9 @@
+$('#mytable').dataTable({
+		oLanguage: dataTableLanguage,
+    bLengthChange: false,
+    iDisplayLength: 15,
+		paginate: true,
+		bFilter:false,
+		info: false,
+
+	});

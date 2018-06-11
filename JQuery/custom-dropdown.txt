@@ -1,0 +1,117 @@
+//prototype not required if using click event
+function DropDown(el) {
+ this.dd = el;
+ this.initEvents();
+}
+DropDown.prototype = {
+ initEvents : function() {
+  var obj = this;
+
+  obj.dd.on('click', function(event){
+   $(this).toggleClass('active');
+   event.stopPropagation();//return false;
+  }); 
+ }
+};
+     //var dd2 = new DropDown(dropdownDiv);  //or
+     dropdownDiv.click(function(event){
+      $(this).toggleClass('active');
+      event.stopPropagation();
+     });
+     dropdownDiv.removeClass('active');
+     $(document).click(function(){dropdownDiv.removeClass('active');});
+     
+     dropdownDiv.find("li").click(function() {
+      //alert(dropdownDiv.text());
+      dropdownSpan.html(($(this).text()));
+      //change event
+     
+     });
+
+'<div class="wrapper-dropdown-5" tabindex="1"><span id="dropdown'+productId +'">'+last12monthstext+'</span></div>';
+
+/*Custom Dropdown*/
+.wrapper-dropdown-5 {
+ background:rgba(0, 0, 0, 0) url("/etc/designs/myproj/media/images/accrodion_down_img.png") no-repeat scroll 100% 50%;
+ display:inline-block;
+ z-index:1030;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    /* Size & position */
+    position: relative;
+    width: 160px;
+    font: 18px speak_bold;
+    color:#666;
+    margin: 0 auto;
+    padding: 12px 15px;
+
+    /* Styles */
+    /*background: #fff;*/
+    border-radius: 5px;
+   
+    cursor: pointer;
+    outline: none;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+
+.wrapper-dropdown-5 .dropdown {
+    /* Size & position */
+    position: absolute;
+    box-shadow: 3px 3px #eee;
+    top: 90%;
+    /*left: 0;*/
+    right: 0;
+ margin-left:0;
+ width: 92%;
+    /* Styles */
+    background: #fff;
+    /*border-radius: 0 0 5px 5px;*/
+    border: 1px solid rgba(0,0,0,0.2);
+    border-top: none;
+    border-bottom: none;
+    /*list-style: none;*/
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+
+    /* Hiding */
+    /*height: 0;*/
+    max-height:0;
+    overflow: hidden;
+}
+
+.wrapper-dropdown-5 .dropdown li {
+ /* display: block;
+    text-decoration: none;*/
+    background: #fff;
+ /*background:rgba(0, 0, 0, 0) url("/etc/designs/myproj/media/images/tick_gray.png") no-repeat;*/
+    font: 16px speak_bold;
+    color:#666;
+    padding: 10px 20px ;
+    transition: background-color 0.2s ease-out;
+}
+
+/* Hover state */
+.wrapper-dropdown-5 .dropdown li:hover{
+   /* color: #57a9d9;*/
+   /*background: #eee;*/
+   background: #eee url("/etc/designs/myproj/media/images/tick_gray.png") no-repeat 0 10px;
+   
+}
+
+/* Active state */
+
+.wrapper-dropdown-5.active .dropdown {
+    border: 1px solid rgba(0,0,0,0.2);
+    /*height: auto; use max height for animation*/
+    max-height: 1000px;
+}

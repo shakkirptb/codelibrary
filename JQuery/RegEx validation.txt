@@ -1,0 +1,28 @@
+function validateWifiPasswordPattern($input) {
+	//if validation fails, return corresponding error message,
+	//which will be shown under the textbox
+	//split regex and validate one by one for specific error message
+	/*
+	•  Minimum 8 characters, maximum 64
+	•  Must contain at least one upper case character
+	•  Must contain at least one lower case character
+	•  Must contain at least one digit
+	•  Can contain special characters: !@#$%^&*()_+-=[]{}\';:"|/.,<>?`~
+	•  Cannot contain spaces
+	•  Cannot contain 3 or more consecutive letters or numbers in a row - eg "123" "abc" etc.
+
+	•	Lowercase allowed (éàèçâôîäöü)
+	•	Uppercase (ÉÀÈÂÔÎÄÖÜ)
+	•	Checked as a letter, not as a special character
+
+	 * */
+	// previous working var regex = new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[_\W])[0-9a-zA-Z_\W]{8,}$/);
+    var regex = new RegExp(/^(?=.*\d)(?=.*[a-zéàèçâôîäöü])(?=.*[A-ZÉÀÈÂÔÎÄÖÜ])[0-9a-zA-ZéàèçâôîäöüÉÀÈÂÔÎÄÖÜ\!\@\#\$\%\^\&\*\(\)\_\+\-\=\[\]\{\}\\\'\;\:\"\|\/\.\,\<\>\?\`\~]{8,}$/);
+	if (!regex.test($input.val())) {
+    	$input.removeClass('successFocus').addClass('errorFocus');
+    	console.log(regex);
+    	return "Your password does not satisfy the current policy requirements!";
+    }
+	$input.removeClass('errorFocus').addClass('successFocus');
+    return true;
+}

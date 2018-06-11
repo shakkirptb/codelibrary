@@ -1,0 +1,1 @@
+powershell -ExecutionPolicy ByPass -File D:\ShAkKiR\CodeLibrary\PowerShell\loop.ps1

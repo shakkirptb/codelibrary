@@ -1,0 +1,4 @@
+
+chrome	mozilla/5.0 (iphone; cpu iphone os 9_3_4 like mac os x) applewebkit/601.1 (khtml, like gecko) crios/59.0.3071.102 mobile/13g35 safari/601.1.46
+firefox	mozilla/5.0 (iphone; cpu iphone os 9_3_4 like mac os x) applewebkit/601.1 (khtml, like gecko) fxios/1.4 mobile/13g35 safari/601.1.46
+safari	mozilla/5.0 (iphone; cpu iphone os 9_3_4 like mac os x) applewebkit/601.1 (khtml, like gecko) version/9.0 mobile/13g35 safari/601.1

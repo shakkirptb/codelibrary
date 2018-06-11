@@ -1,0 +1,8 @@
+Its another way of writing IIFE (immediately-invoked function expression).
+
+Its other way of writing -
+
+(function( args ) {})()
+same as
+
+!function ( args ) {}();

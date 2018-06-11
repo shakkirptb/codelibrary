@@ -1,0 +1,4 @@
+  	//prevent copy-paste
+  	 $('#newpassword,#confirmpassword').bind("copy paste",function(e) {
+          e.preventDefault();
+      });

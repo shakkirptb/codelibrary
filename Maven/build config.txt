@@ -1,0 +1,50 @@
+search for the pom with "fork" (can be inside child projects)
+and add the "properties" values as shown,
+give the correct port
+
+
+
+
+<profiles>
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+	<properties>
+                <build.profile.id>local</build.profile.id>
+                <cq.author.user>admin</cq.author.user>
+                <cq.author.password>admin</cq.author.password>
+                <cq.author.host>localhost</cq.author.host>
+                <cq.author.port>4503</cq.author.port>
+                <cq.publish.user />
+                <cq.publish.password />
+                <cq.publish.host />
+                <cq.publish.port>0</cq.publish.port>
+        	</properties> 
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.cognifide.maven.plugins</groupId>
+                        <artifactId>maven-crx-plugin-1.0.3.FORKED</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>clean</goal>
+                                    <goal>install</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <maxVersionsToKeep>5</maxVersionsToKeep>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>jenkins</id>
+        </profile>
+    </profiles>

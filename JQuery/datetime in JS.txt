@@ -1,0 +1,9 @@
+getFullYear() - Returns the 4-digit year
+getMonth() - Returns a zero-based integer (0-11) representing the month of the year.
+getDate() - Returns the day of the month (1-31).
+getDay() - Returns the day of the week (0-6). 0 is Sunday, 6 is Saturday.
+getHours() - Returns the hour of the day (0-23).
+getMinutes() - Returns the minute (0-59).
+getSeconds() - Returns the second (0-59).
+getMilliseconds() - Returns the milliseconds (0-999).
+getTimezoneOffset() - Returns the number of minutes between the machine local time and UTC

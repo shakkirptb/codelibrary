@@ -1,0 +1,4 @@
+<c:out value="(${fn:substring(phone, 0, 4)}) ${fn:substring(phone, 4, fn:length(phone))}"/>
+
+
+<fmt:formatNumber value="${phone}" type="number" pattern="##,######"/>

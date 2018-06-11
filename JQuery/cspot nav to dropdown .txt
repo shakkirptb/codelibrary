@@ -1,0 +1,120 @@
+	var isMobile1=false;
+	$(function(){
+		$(window).resize(function(e){
+			updateCspotMenu();
+		});
+		updateCspotMenu();	
+		scrollToElement($('#cSpotNavContainer'),1000);
+	    /*cspot dropdown*/
+   		$('#cSpotNavContainer nav').on('click', 'li',function() {
+   			var $acnhor=$(this).find('a');
+   			if(!$acnhor.hasClass('disabledCSpotMenu')){
+	   			window.location.href=$(this).find('a').attr('href');
+   			}
+		}).on('click',function(e){
+			$(this).toggleClass('open');
+			return false;
+		});
+		$(document).click(function(){
+			$('.cspotMenuDropdown').removeClass('open');
+		});
+	});
+	function updateCspotMenu(){
+		var breakingWidth=480;
+		var $cspotNav=$('#cSpotNavContainer').find('nav');
+		if(!isMobile1 && $(window).width() <= breakingWidth){//480){
+			// mobile view instructions
+			$cspotNav.addClass('cspotMenuDropdown');
+			$cspotNav.find('.subMenuDemarcations').parent().hide();
+			$cspotNav.prepend('<span id="cspotDropdownImg" ></span><span id="cspotDropdownTop">'+ $cspotNav.find('li.active').html() +'</span>');
+			isMobile1=true;
+		} else if(isMobile1 && $(window).width() > breakingWidth) {
+			// desktop view instructions
+			$cspotNav.removeClass('cspotMenuDropdown');
+			$cspotNav.find('.subMenuDemarcations').parent().css('display','inline');
+			$("#cspotDropdownTop").remove();
+			isMobile1=false;
+		}
+	}
+
+</script>
+<style>
+/*c-spot menu Dropdown*/
+#cspotDropdownImg{
+ 	background: rgba(0, 0, 0, 0) url("/etc/designs/lgi-pe-oim/media/responsive/buttons/masthead-meta-ldpi.png") no-repeat scroll 0 0 / 196px 42px;
+    display: block;
+    height: 50px;
+    left: 8px;
+    position: absolute;
+    top: 5px;
+    width: 42px;
+}
+#cspotDropdownTop{
+	border-bottom: 3px solid #0ad !important;
+	padding-bottom:16px;
+}
+#cSpotNavContainer .cspotMenuDropdown a{
+	padding:0;
+	border: none!important;
+}
+#cSpotNavContainer .cspotMenuDropdown {
+    background: url("/etc/designs/mycare-ch/media/images/accordion_gray_down_arrow.png") no-repeat scroll 95% 53%;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    z-index: 1030;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    padding: 15px 0;
+    cursor: pointer;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+#cSpotNavContainer .cspotMenuDropdown li {display: block;}
+#cSpotNavContainer .cspotMenuDropdown>ul {
+    position: absolute;
+    box-shadow: 3px 3px #eee;
+    top: 100%;
+    width: 100%;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-top: none;
+    border-bottom: none;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    /* Hiding */
+    max-height: 0;
+    overflow: hidden;
+}
+#cSpotNavContainer .cspotMenuDropdown li {
+    font: 14px arial;
+    color: #666;
+    font-weight: normal;
+    padding: 10px 20px;
+    transition: background-color 0.2s ease-out;
+}
+#cSpotNavContainer .cspotMenuDropdown li:hover {
+    background-color: #edeff5!important;
+    color: #333!important
+}
+#cSpotNavContainer .cspotMenuDropdown.open>ul {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    max-height: 1000px;
+}
+#cSpotNavContainer .cspotMenuDropdown.open{
+   	background: url("/etc/designs/mycare-ch/media/images/accrodion_up_img.png") no-repeat scroll 95% 53% !important;
+}
+#cSpotNavContainer .cspotMenuDropdown:HOVER,
+#cSpotNavContainer .cspotMenuDropdown:FOCUS {
+    background: url("/etc/designs/mycare-ch/media/images/accrodion_down_img.png") no-repeat scroll 95% 53%;
+}
+</style>

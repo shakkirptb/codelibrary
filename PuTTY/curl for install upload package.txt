@@ -1,0 +1,30 @@
+dev
+curl --noproxy '*' -u mshakkir:Maxn@010 -F file=@"myproj-uk.jar" -F name="myproj-uk-15.84.289-SNAPSHOT" -F force=true -F install=true http://xx.xx.xx.4:4502/crx/packmgr/service.jsp
+
+curl --noproxy '*' -u mshakkir:Maxn@010 -F file=@"myproj-uk.jar" -F name="myproj-uk-15.84.289-SNAPSHOT" -F force=true -F install=true http://xx.xx.xx.5:4503/crx/packmgr/service.jsp
+
+curl --noproxy '*' -u mshakkir:Maxn@010 -F file=@"myproj-uk.jar" -F name="myproj-uk-15.84.289-SNAPSHOT" -F force=true -F install=true http://xx.xx.xx.6:4503/crx/packmgr/service.jsp
+
+
+jit
+curl --noproxy '*' -u mshakkir:Maxn@010 -F file=@"myproj-uk-15.84.283-SNAPSHOT.zip" -F name="myproj-uk-15.84.283-SNAPSHOT" -F force=true -F install=true http://xx.xx.xx.9:4502/crx/packmgr/service.jsp
+
+curl --noproxy '*' -u mshakkir:Maxn@010 -F file=@"myproj-uk-15.84.283-SNAPSHOT.zip" -F name="myproj-uk-15.84.283-SNAPSHOT" -F force=true -F install=true http://xx.xx.xx.10:4503/crx/packmgr/service.jsp
+
+curl --noproxy '*' -u mshakkir:Maxn@010 -F file=@"myproj-uk-15.84.283-SNAPSHOT.zip" -F name="myproj-uk-15.84.283-SNAPSHOT" -F force=true -F install=true http://xx.xx.xx.11:4503/crx/packmgr/service.jsp
+
+
+jit
+curl --noproxy '*' -u mshakkir:Maxn@010 -F file=@"myproj-uk.jar" -F name="myproj-uk-15.84.286" -F force=true -F install=true http://xx.xx.xx.9:4502/crx/packmgr/service.jsp
+
+curl --noproxy '*' -u mshakkir:Maxn@010 -F file=@"myproj-uk.jar" -F name="myproj-uk-15.84.286" -F force=true -F install=true http://xx.xx.xx.10:4503/crx/packmgr/service.jsp
+
+curl --noproxy '*' -u mshakkir:Maxn@010 -F file=@"myproj-uk.jar" -F name="myproj-uk-15.84.286" -F force=true -F install=true http://xx.xx.xx.11:4503/crx/packmgr/service.jsp
+
+
+
+
+
+
+Bundle upload and install
+curl --noproxy '*' -u mshakkir:Maxn@010 -F action=install -F bundlestartlevel=20 -F bundlefile=@"myproj-uk-15.84.282.jar" http://xx.xx.xx.9:4505/system/console/bundles

@@ -1,0 +1,1 @@
+<fmt:formatNumber var="subscriptionNetAmt" type="number" maxFractionDigits="2" value="${subscriptionAmt}" />

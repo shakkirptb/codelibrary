@@ -1,0 +1,7 @@
+var $this = $(this),
+            loadurl = $this.attr('data-prodinternetloadurl'),
+            targ = $this.attr('data-target-internet');
+        $("#elementtarget").html('<div id="Loader" class="loader" style="display: block"></div>');
+        $.get(loadurl, function(data) {
+            $("#elementtarget").html(data);
+        });

@@ -1,0 +1,8 @@
+<c:set var="test" value="test1"/>
+<%
+  String resp = "abc";
+  String test = pageContext.getAttribute("test");
+  resp = resp + test;
+  pageContext.setAttribute("resp", resp);
+%>
+<c:out value="${resp}"/>

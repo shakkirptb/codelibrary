@@ -1,0 +1,11 @@
+install.packages("Flury")
+library(Flury)
+data("computers")
+computers
+view(computers)
+attach(computers)
+plot(computers)
+abline(computers$Units,computers$Minutes)
+lm(formula = computers$Minutes ~ computers$Units)
+computers.lm <- lm(formula = computers$Minutes ~ computers$Units)
+abline(computers.lm$coefficients[1],computers.lm$coefficients[2])

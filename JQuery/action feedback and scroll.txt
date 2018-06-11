@@ -1,0 +1,44 @@
+
+/*Feedback Bar*/
+var feedBackCount = 0;
+var feedBackWrapper = "";
+var closingFeedBackBar = '</div>';
+function actionFeedback(type, code, divId, optionalFadeAfter, optionalScroll){
+	
+	feedBackWrapper = '<div id="action_feedback_wrapper'+feedBackCount+'" class="action_feedback_wrapper">';
+	feedBackWrapper += '<div id="action_feedback'+feedBackCount+'" class="'+type+'">';
+	feedBackWrapper += '<div id="msg_feedback'+feedBackCount+'" class="containerPadding">';
+	feedBackWrapper += '<span class="feedback_icon"></span>';
+	feedBackWrapper += '<span class="feedback_msg">'+code+'</span>';
+	feedBackWrapper += closingFeedBackBar;
+	feedBackWrapper += closingFeedBackBar;
+	var firstBannerAboveGivenDiv=$("#"+divId);
+	while(firstBannerAboveGivenDiv.prev().hasClass('action_feedback_wrapper'))
+	{firstBannerAboveGivenDiv=firstBannerAboveGivenDiv.prev();}
+	firstBannerAboveGivenDiv.before(feedBackWrapper);
+	var $wrapper=$('#action_feedback_wrapper'+feedBackCount);
+	stretchBanners();
+	feedBackCount++;
+	
+	optionalScroll=(optionalScroll==undefined || optionalScroll ===true)?1000:optionalScroll;
+    if (optionalScroll ===0 || optionalScroll)//scroll enabled by default 
+	{
+    	scrollToElement($wrapper,optionalScroll);
+	}
+    //Auto-hide is disabled by default
+	optionalFadeAfter=(optionalFadeAfter ===true)?15000:optionalFadeAfter;
+	if(optionalFadeAfter){
+		setTimeout(function() {
+			$wrapper.fadeOut('slow',function(){$(this).remove();});
+		}, optionalFadeAfter);
+	}
+	return $wrapper;
+}
+//function to scroll to an element
+function scrollToElement(ele, animationTime){
+	 //if(ele==undefined)return;   
+	$('html, body').animate({
+             scrollTop: ele.offset().top
+     }, animationTime);
+}
+/*Feedback Bar for suspended and terminated*/

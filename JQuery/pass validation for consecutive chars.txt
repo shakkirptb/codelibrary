@@ -1,0 +1,14 @@
+	var str='';
+	//var regex3 = new RegExp(/^([0-9]{3,}|[a-zA-ZéàèçâôîäöüÉÀÈÂÔÎÄÖÜ]{3,})$/);
+	var matchfound=false;
+	for(i=0;i<=val.length-3;i++){
+		//str=val.substring(i,i+3);
+		//if (regex3.test(str)) {
+		var s1=val.charCodeAt(i);
+	    var s2=val.charCodeAt(i+1);
+	    var s3=val.charCodeAt(i+2);
+	    if(Math.abs(s1-s2)===1 && s1-s2===s2-s3 ){
+			matchfound=true;
+			break;
+		}
+	}

@@ -1,0 +1,7 @@
+<fmt:parseDate var="startDate" value="${message.event.startDate}" pattern="yyyy-MM-dd'T'HH:mm:ss" />
+			   <fmt:formatDate var="startDate" pattern="dd.MM.yyyy HH:mm" value="${startDate}" />
+			   <fmt:parseDate var="endDate" value="${message.event.endDate}" pattern="yyyy-MM-dd'T'HH:mm:ss" />
+			   <fmt:formatDate var="endDate" pattern="dd.MM.yyyy HH:mm" value="${endDate}" />
+			   
+			   <c:set var="pageSource" value="${fn:replace(pageSource,startDatePlaceHolder,startDate)}"/>
+			   <c:set var="pageSource" value="${fn:replace(pageSource,endDatePlaceHolder,endDate)}"/>

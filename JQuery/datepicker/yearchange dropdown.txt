@@ -1,0 +1,36 @@
+	//date picker implementation with fixes for tab focusing, year dropdown etc.
+      $("#dateOfBirth").datepicker({
+        beforeShow: function(input, inst) {
+            var dp = $(inst.dpDiv);
+            var offset = $(input).outerWidth(false) - dp.outerWidth(false);
+            dp.css('margin-left', offset);
+            $(document).off('focusin.bs.modal');
+        },
+        onClose:function(){
+        	$(document).on('focusin.bs.modal');
+        },
+        dateFormat: 'dd.mm.yy',
+        showAnim: "slideDown",
+        dayNamesMin: ["S", "M", "T", "W", "T", "F", "S"],
+        changeYear: true,
+        maxDate: 0,
+        yearRange : '-116:+0'
+    });
+/*
+   $("#dateOfBirth").datepicker({
+        beforeShow: function(input, inst) {
+            var dp = $(inst.dpDiv);
+            var offset =$(input).outerWidth(false)-dp.outerWidth(false);
+            dp.css('margin-left', offset);
+        },
+        dateFormat: 'dd.mm.yy',
+        buttonimage: '/content/dam/myupc/calander.png',
+        nextText: 'Later',
+        showAnim: "slideDown",
+        dayNamesMin: ["S", "M", "T", "W", "T", "F", "S"],
+        buttonImageOnly: true,
+        firstDay: 1,
+        maxDate: 0,
+        minDate: "-100y",
+    });
+ */

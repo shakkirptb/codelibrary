@@ -1,0 +1,62 @@
+
+<%@ page import="java.util.Random"%>
+
+ 
+
+<html>
+
+ 
+
+<head>
+
+    <title>Java Code Geeks Snippets - Get Request Header in JSP Page</title>
+
+</head>
+
+ 
+
+<body>
+
+ 
+
+    Arbitrary Header:
+
+    The user agent is <%= request.getHeader("user-agent") %>
+
+     
+
+    Implicit Headers:
+
+     
+
+    Request method:
+
+    <%= request.getMethod() %>
+
+     
+
+    Request URI:
+
+    <%= request.getRequestURI() %>
+
+     
+
+    Request protocol:
+
+    <%= request.getProtocol() %>
+
+     
+
+    Remote Host:
+
+    <%= request.getRemoteHost() %>
+
+     
+
+    Remote Address:
+
+    <%= request.getRemoteAddr() %>
+
+     
+
+</body>

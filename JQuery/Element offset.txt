@@ -1,0 +1,5 @@
+Right offset
+var rt = ($(window).width() - ($whatever.offset().left + $whatever.outerWidth()));
+
+Viewable offset
+var viewableOffset = $("#li.test").offset().top - $(window).scrollTop();

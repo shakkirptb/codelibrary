@@ -1,0 +1,33 @@
+           	function HTMLTooltip(el,trigger,autoHideTime) {
+            		this.tooltip = el;
+            		if(typeof trigger === 'number'){this.hideTime=trigger;this.triggerString='manual';}
+            		else{this.triggerString=trigger;this.hideTime = autoHideTime || 0;}
+            		this.initEvents();
+            		}
+            	HTMLTooltip.prototype = {
+            			 initEvents : function() {
+	            			  var obj = this;
+	            			  var mytt=obj.tooltip.bttooltip({html:true,trigger : obj.triggerString});
+	            			  if(obj.triggerString==='manual'){
+	                    		mytt.on('mouseenter',function(){
+	                    			var htmlTooltipInstance=$(this);
+	                    			htmlTooltipInstance.bttooltip('show');
+	                    			htmlTooltipInstance.next().unbind('mouseleave');
+	                    			htmlTooltipInstance.next().bind('mouseleave',function(){
+	                    				mytt.bttooltip('hide');
+	        	            		});
+	                    			htmlTooltipInstance.parent().parent().unbind('mouseleave');
+	                    			htmlTooltipInstance.parent().parent().bind('mouseleave',function(){
+	                    				mytt.bttooltip('hide');
+	        	            		});	                    			
+	                    			if(obj.hideTime!==0){setTimeout(function(){htmlTooltipInstance.bttooltip('hide');},obj.hideTime)}
+	                    			return false;
+	        	            	}); 
+	            			    $('body').on('click',function(){mytt.bttooltip('hide');});
+	            			  }
+	            			 }
+            	}
+---------------------------------------
+            	new HTMLTooltip($('.HTMLtooltip'),'manual');
+--------------------------------------
+            	new HTMLTooltip($('.HTMLtooltip'),8000);

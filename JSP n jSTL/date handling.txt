@@ -1,0 +1,37 @@
+Parse date
+------------------
+
+c:set var="now" value="20-10-2010" />
+
+<fmt:parseDate value="${now}" var="parsedEmpDate" 
+                              pattern="dd-MM-yyyy" />
+<p>Parsed Date: <c:out value="${parsedEmpDate}" />
+
+
+
+Format date
+------------
+
+<c:set var="now" value="<%=new java.util.Date()%>" />
+
+<p>Formatted Date (1): <fmt:formatDate type="time" 
+            value="${now}" /></p>
+<p>Formatted Date (2): <fmt:formatDate type="date" 
+            value="${now}" /></p>
+<p>Formatted Date (3): <fmt:formatDate type="both" 
+            value="${now}" /></p>
+<p>Formatted Date (4): <fmt:formatDate type="both" 
+            dateStyle="short" timeStyle="short" 
+            value="${now}" /></p>
+<p>Formatted Date (5): <fmt:formatDate type="both" 
+            dateStyle="medium" timeStyle="medium" 
+            value="${now}" /></p>
+<p>Formatted Date (6): <fmt:formatDate type="both" 
+            dateStyle="long" timeStyle="long" 
+            value="${now}" /></p>
+<p>Formatted Date (7): <fmt:formatDate pattern="yyyy-MM-dd" 
+            value="${now}" /></p>
+
+today
+<jsp:useBean id="dateValue" class="java.util.Date" />
+<jsp:setProperty name="dateValue" property="time" value="${h.time}" />
