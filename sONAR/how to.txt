@@ -1,0 +1,8 @@
+1. extract sonar scanner and add the directory path of sonar-scanner.bat file to environment variables
+https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner
+D:\sONAR\sonar-scanner-cli-3.0.3.778-windows\sonar-scanner-3.0.3.778-windows\bin
+
+2. copy sonar-project.properties to project location
+3. configure project name,exclusions etc in the properties file
+
+4. open cmd at project path run  >sonar-scanner
