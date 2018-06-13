@@ -1,0 +1,9 @@
+we can try and see all the methodes availabe for page and resource classess using a java file
+
+
+var wifreeContentUrl="<%= currentPage.getProperties().get("cq:template", "")%>";
+var wifreeContentUrl="<%= slingRequest.getRequestURI()%>";
+var wifreeContentUrl="<%= currentPage.getPath() %>";
+var wifreeContentUrl="<%= resource.getName() %>";
+var wifreeContentUrl="<%= resource.getPath() %>";
+var wifreeContentUrl="<%= currentPage.getResource().getPath() %>"";

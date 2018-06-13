@@ -1,0 +1,6 @@
+int liveRootDepth= StringUtils.countMatches(csrLiveRoot,"/");
+				parentLevel = currentPage.getDepth() -  liveRootDepth-1;
+				homePagePath = currentPage.getParent(parentLevel).getPath();
+
+
+https://docs.adobe.com/docs/en/cq/5-6-1/javadoc/com/day/cq/wcm/api/Page.html#getParent(int)

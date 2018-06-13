@@ -1,0 +1,2 @@
+Translations can we found at
+/libs/cq/i18n/translator.html

@@ -1,0 +1,8 @@
+in jsp 
+
+
+
+or 
+//writes in HTML
+<cq:includeClientLib categories="jsencrypt"/>
+

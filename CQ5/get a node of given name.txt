@@ -1,0 +1,15 @@
+String query = "SELECT * FROM [nt:base] AS s WHERE NAME(s) = '%s'";
+resourceResolver.findResources(String.format(query, "node-name"), "JCR-SQL2");
+
+-------------------------
+
+
+<%
+String componentPath = "/content/phonegap/myapp/en/home/my-profile/jcr:content/content-par/profile_details"; // path
+Node node = slingRequest.getResourceResolver().getResource(componentPath).adaptTo(Node.class);
+Property property = node.getProperty("sling:resourceType");
+if (property != null) {
+	String path = property.getValue().toString();
+	out.println(path);
+}
+%>

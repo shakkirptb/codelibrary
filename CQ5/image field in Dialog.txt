@@ -1,0 +1,31 @@
+<items jcr:primaryType="cq:WidgetCollection">                	            	
+					<installstep1inactivetext 
+						jcr:primaryType="cq:Widget" 
+						fieldLabel="Text for Step 1 inactive"
+						name="./installstep1inactivetext" 
+						xtype="textfield" />
+                    <installstep1inactive
+                        jcr:primaryType="cq:Widget"
+                        ddGroups="[media]"
+                        fieldDescription="Image to be shown when the step is not active"
+                        fieldLabel="Image"
+                        fileNameParameter="./installstep1inactive/fileName"
+                        fileReferenceParameter="./installstep1inactive/fileReference"
+                        height="100"
+                        name="./installstep1inactive/file"
+                        requestSuffix="/installstep1inactive.img.png"
+                        style="border: 2px dashed #ccc; margin-bottom: 10px;"
+                        xtype="html5smartimage"/>
+                    <installstep1inactiveresource
+                        jcr:primaryType="cq:Widget"
+                        ignoreData="{Boolean}true"
+                        name="./installstep1inactive/sling:resourceType"
+                        value="foundation/components/image"
+                        xtype="hidden"/>
+</items>
+
+
+
+<c:set var="step1inactiveimage" value="${properties['step1/image/fileReference']}"/>
+${step1inactiveimage}
+<img class="paymentsSummaryMain" src="${step1inactiveimage}"/>

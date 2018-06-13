@@ -1,0 +1,1 @@
+<%= currentPage.getProperties().get("cq:template", "")%>

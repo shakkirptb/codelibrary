@@ -1,0 +1,41 @@
+.accordion-toggle.collapsed:ACTIVE{
+	background: #f2f2f2;
+  	color: #249;
+}
+.accordion-toggle.collapsed{
+	background: #f9f9f9;
+	color:  #333;
+	border: none;
+}
+.accordion-toggle,.accordion-toggle:ACTIVE {
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  background: #fff;
+  padding: 20px 5px;
+  overflow: hidden;
+  color: #249;
+}
+.accordion-toggle:HOVER{
+	background: #f2f2f2;
+  	color: #249;
+	
+}
+.accordion-toggle .expandIcon {
+  position: absolute;
+  top: 45%;
+  right: 20px;
+  display: block;
+  width: 17px;
+  height: 10px;
+  background-image: url('/etc/designs/myapp-ch/media/images/accrodion_up_img.png');
+  background-repeat: no-repeat;
+}
+
+.accordion-toggle.collapsed .expandIcon {
+  background-image: url('/etc/designs/myapp-ch/media/images/accordion_gray_down_arrow.png');
+  background-repeat: no-repeat;
+}
+.accordion-toggle.collapsed:hover .expandIcon,.accordion-toggle.collapsed:ACTIVE .expandIcon{
+	background-image: url('/etc/designs/myapp-ch/media/images/accrodion_down_img.png');
+	background-repeat: no-repeat;
+}

@@ -1,0 +1,19 @@
+<%@page session="false"
+          import="com.day.cq.wcm.api.Page,
+                  com.day.cq.wcm.api.PageFilter,
+                  java.util.List,
+                  com.day.cq.wcm.api.components.IncludeOptions,
+                  com.adobe.cq.mobile.angular.data.util.FrameworkContentExporterUtils" %>
+
+<%
+                                 IncludeOptions opts = IncludeOptions.getOptions(request, true);
+						        opts.setDecorationTagName("");
+						        opts.forceSameContext(Boolean.TRUE);                          
+                                %><cq:include path="help" resourceType="myapp/components/help"/>
+
+////////////////////////////////////////////////////////////////////
+add property (works but conponet wont be editable)
+cq:noDecoration boolean true in content .xml
+
+///////////////
+or try

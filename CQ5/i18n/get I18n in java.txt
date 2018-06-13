@@ -1,0 +1,20 @@
+Best solution added in MyUtil.java
+=================
+	public static String getI18nValue(SlingHttpServletRequest slingRequest,String key){
+		try {
+			Page page = PageUtils.retrieveCurrentPage(slingRequest);
+			Locale pageLocale = page.getLanguage(false);
+			ResourceBundle localeResourceBundle = slingRequest.getResourceBundle(pageLocale);
+			String value = I18n.get(localeResourceBundle, key);
+		return value;
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+=================
+
+							String nopfd = I18n.get(slingRequest, "My.billoverview.nopdfmessage");
+							if(StringUtils.isNotEmpty(nopfd)){
+								sResult = nopfd;
+							}
+							

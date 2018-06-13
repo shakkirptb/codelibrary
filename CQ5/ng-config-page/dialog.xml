@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+	jcr:primaryType="cq:Dialog" activeTab="{Long}0" xtype="dialog"
+	title="Tooltip configuration">
+	<items jcr:primaryType="cq:WidgetCollection">
+		<tooltip 
+			jcr:primaryType="cq:Widget" 
+			fieldLabel="Tooltips"
+			name="./tooltip" 
+			xtype="multifield">
+			<configs jcr:primaryType="nt:unstructured" labelWidth="65"
+				xtype="configs">
+				<items jcr:primaryType="cq:WidgetCollection">
+					<key 
+						jcr:primaryType="cq:Widget" 
+						fieldLabel="Tooltip key" 
+						name="key"
+						xtype="textfield" />
+					<value 
+						jcr:primaryType="cq:Widget" 
+						fieldLabel="Tooltip text"
+						name="value" 
+						xtype="textfield" />
+					<hide 
+						jcr:primaryType="cq:Widget" 
+						fieldLabel="Hide Tooltip"
+						name="hide" 
+						xtype="selection" 
+						type="checkbox" />
+				</items>
+			</configs>
+		</tooltip>
+	</items>
+</jcr:root>
