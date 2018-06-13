@@ -1,0 +1,2 @@
+the new component can be used as xtype "mycomponent",
+can contains other dialog components and value stored as json in JCR

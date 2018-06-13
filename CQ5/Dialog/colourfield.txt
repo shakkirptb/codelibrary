@@ -1,0 +1,6 @@
+                    <iconColor jcr:primaryType="cq:Widget"
+                       fieldLabel="Icon Fill Color"
+                       fieldDescription="Please select the color to be applied for icon"
+                       name="iconColor" 
+                       colors="{String[]}FFFFFF,000000"
+                       xtype="colorfield" />

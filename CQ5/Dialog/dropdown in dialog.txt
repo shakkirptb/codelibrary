@@ -1,0 +1,37 @@
+                <selectPageType
+				    jcr:primaryType="cq:Widget"
+				    fieldLabel="Page Type"
+				    name="./selectPageType"
+				    type="select"
+				    xtype="selection">
+				    <options jcr:primaryType="cq:WidgetCollection">
+				        <promotion
+				            jcr:primaryType="nt:unstructured"
+				            text="Promotion"
+				            value="promotion"/>
+				        <overdue
+				            jcr:primaryType="nt:unstructured"
+				            text="Overdue payment information"
+				            value="overdue"/>
+				        <payment
+				            jcr:primaryType="nt:unstructured"
+				            text="Payment confirmation information"
+				            value="payment"/>
+				        <appointment
+				            jcr:primaryType="nt:unstructured"
+				            text="Order tracking appointments"
+				            value="appointment"/>
+				        <endofcontract
+				            jcr:primaryType="nt:unstructured"
+				            text="End of contract information"
+				            value="endofcontract"/>
+				        <profilecompletion
+				            jcr:primaryType="nt:unstructured"
+				            text="Profile completion information"
+				            value="profilecompletion"/>         
+				        <othernotifications
+				            jcr:primaryType="nt:unstructured"
+				            text="Other"
+				            value="other"/>         
+				    </options>
+				</selectPageType>

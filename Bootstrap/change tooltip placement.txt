@@ -1,0 +1,2 @@
+		$('.channelCost [data-toggle="tooltip"]').bttooltip('destroy');
+		$('.channelCost [data-toggle="tooltip"]').bttooltip({ placement: 'right' });

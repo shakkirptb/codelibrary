@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Dialog"
+    activeTab="{Long}0"
+    xtype="panel"
+	title="Tooltip Component">
+	<items jcr:primaryType="cq:WidgetCollection">	
+		<key 
+			jcr:primaryType="cq:Widget" 
+	          fieldLabel="Select key:"
+	          fieldDescription="select a tooltip from the list"
+	          value="select a key" 
+	          name="./key" 
+	          type="select" 
+	          xtype="selection" 
+	          options="$PATH.tooltipKeys.js"
+          />	
+
+	</items>
+</jcr:root>

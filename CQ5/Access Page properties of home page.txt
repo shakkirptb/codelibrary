@@ -1,0 +1,14 @@
+
+      <%@ page import="com.day.cq.commons.inherit.HierarchyNodeInheritanceValueMap" %>
+      <%@ page import="com.day.cq.commons.inherit.InheritanceValueMap" %>
+      <%
+              InheritanceValueMap iProperties = new HierarchyNodeInheritanceValueMap(currentPage.getContentResource());
+		      String modaltitle = iProperties.getInherited("simactivation/modaltitle", String.class);
+		      String modaldesc = iProperties.getInherited("simactivation/modaldesc", String.class);
+		      String icciderror = iProperties.getInherited("simactivation/icciderror", String.class);
+		      String savebutton = iProperties.getInherited("simactivation/savebutton", String.class);
+		      String cancellink = iProperties.getInherited("simactivation/cancellink", String.class);
+		      String activatesimmsg = iProperties.getInherited("simactivation/activatesimmsg", String.class);
+		      String successmsg = iProperties.getInherited("simactivation/successmsg", String.class);
+		      String errormsg = iProperties.getInherited("simactivation/errormsg", String.class);
+		%>

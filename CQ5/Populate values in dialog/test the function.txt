@@ -1,0 +1,5 @@
+check > componentpath.tooltipKeys.js
+
+eg >
+
+http://localhost:4502/content/phonegap/myproj/en/mobile-content/bills---overview/payment-settings/_jcr_content/content-par/payment_settings/paymentMethodHeaderTooltip.tooltipKeys.js

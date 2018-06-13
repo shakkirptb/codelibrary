@@ -1,0 +1,36 @@
+<div id="accFromTab1" class="panel-group row accordianPanelGroup">
+	<div class="panel panel-default">
+		<div class="panel-heading" id="accheader1">
+			<h4 class="panel-title">
+				<div data-target="#accbody1" data-parent="#accFromTab1" data-toggle="collapse" class="accordion-toggle collapsed">
+					<div class="col-md-6 col-sm-6 col-xs-6 accoridanHeaderFont accordianTextFirst">Local calls</div>
+					<span class="expandIcon"></span>
+					<div class="col-md-6 col-sm-6 col-xs-6  text-right addPaddingRight accoridanHeaderFont accordianTextFirst">CHF 4.18</div>
+					<span class="expandIcon"></span>
+				</div>
+			</h4>
+		</div>
+		<div class="panel-body removePanelBodyPadding panel-collapse collapse" id="accbody1" style="height: 0px;">
+			<div id="collapse1LOCAL">
+			accordion1
+			</div>
+		</div>
+	</div>	
+	<div class="panel panel-default">
+		<div class="panel-heading" id="accheader2">
+			<h4 class="panel-title">
+				<div data-target="#accbody2" data-parent="#accFromTab1" data-toggle="collapse" class="accordion-toggle collapsed">
+					<div class="col-md-6 col-sm-6 col-xs-6 accoridanHeaderFont accordianTextFirst">Roaming calls</div>
+					<span class="expandIcon"></span>
+					<div class="col-md-6 col-sm-6 col-xs-6  text-right addPaddingRight accoridanHeaderFont accordianTextFirst">CHF 4.18</div>
+					<span class="expandIcon"></span>
+				</div>
+			</h4>
+		</div>
+		<div class="panel-body removePanelBodyPadding panel-collapse collapse" id="accbody2" style="height: 0px;">
+			<div id="collapse1LOCAL">
+			accordion2
+			</div>
+		</div>
+	</div>
+</div>

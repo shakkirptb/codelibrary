@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Dialog"
+    height="575"
+    minHeight="500"
+    minWidth="600"
+    title="Unitymedia Catalogue - Product"
+    width="720"
+    xtype="dialog">
+    <items
+        jcr:primaryType="cq:TabPanel"
+        xtype="tabpanel">
+        <items jcr:primaryType="cq:WidgetCollection">
+            <generic
+                jcr:primaryType="cq:Panel"
+                title="Generic"
+                xtype="panel">
+                <items jcr:primaryType="cq:WidgetCollection">
+                    <title1
+                        jcr:primaryType="cq:Widget"
+                        allowBlank="false"
+                        fieldLabel="Title 1"
+                        name="./title1"
+                        xtype="textfield"/>
+                    <title2
+                        jcr:primaryType="cq:Widget"
+                        allowBlank="false"
+                        fieldLabel="Title 2"
+                        name="./title2"
+                        xtype="textfield"/>
+                    <offerid
+                        jcr:primaryType="cq:Widget"
+                        allowBlank="false"
+                        fieldLabel="Offer Id"
+                        name="./offerid"
+                        xtype="textfield"/>
+                    <teriffoffertext
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Teriff offer text"
+                        name="./teriffoffertext"
+                        xtype="textfield"/>
+                    <customertype
+                        jcr:primaryType="cq:Widget"
+                        defaultValue="both"
+                        fieldLabel="Select customer type"
+                        name="./customertype"
+                        type="select"
+                        xtype="selection">
+                        <options jcr:primaryType="cq:WidgetCollection">
+                            <o1
+                                jcr:primaryType="nt:unstructured"
+                                text="UPC customer"
+                                value="upccustomer"/>
+                            <o2
+                                jcr:primaryType="nt:unstructured"
+                                text="Non-UPC customer"
+                                value="nonupccustomer"/>
+                            <o3
+                                jcr:primaryType="nt:unstructured"
+                                text="Both"
+                                value="both"/>
+                        </options>
+                    </customertype>
+                    <discounts
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Discounts"
+                        fieldSubLabel="(Enter Discounts applicable to this offer)"
+                        name="./discounts"
+                        xtype="multifield">
+                        <fieldConfig
+                            jcr:primaryType="cq:Widget"
+                            xtype="multitextfieldcustomxtype"/>
+                    </discounts>
+                </items>
+            </generic>
+            <previewimage
+                jcr:primaryType="cq:Panel"
+                title="Product Preview"
+                xtype="panel">
+                <items jcr:primaryType="cq:WidgetCollection">
+                    <image
+                        jcr:primaryType="cq:Widget"
+                        border="{Boolean}true"
+                        cropParameter="./image/imageCrop"
+                        ddGroups="[media]"
+                        fieldLabel="Product preview image"
+                        fileNameParameter="./image/fileName"
+                        fileReferenceParameter="./image/fileReference"
+                        height="{Long}400"
+                        hideLabel="{Boolean}false"
+                        mapParameter="./image/imageMap"
+                        name="./image/file"
+                        requestSuffix="/image.img.png"
+                        rotateParameter="./image/imageRotate"
+                        xtype="html5smartimage"/>
+                    <imagealt
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Product image alt"
+                        name="./imagealt"
+                        xtype="textfield"/>
+                </items>
+            </previewimage>
+            <detailsplan
+                jcr:primaryType="cq:Panel"
+                title="Product details"
+                xtype="panel">
+                <items jcr:primaryType="cq:WidgetCollection">
+                    <displayname
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Display name text"
+                        name="./displayname"
+                        xtype="textfield"/>
+                    <specialoffertext
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Special offer text"
+                        name="./specialoffertext"
+                        xtype="textfield"/>
+                    <detailimage
+                        jcr:primaryType="cq:Widget"
+                        border="{Boolean}true"
+                        cropParameter="./detailimage/imageCrop"
+                        ddGroups="[media]"
+                        fieldLabel="Product detail image"
+                        fileNameParameter="./detailimage/fileName"
+                        fileReferenceParameter="./detailimage/fileReference"
+                        height="{Long}400"
+                        hideLabel="{Boolean}false"
+                        mapParameter="./detailimage/imageMap"
+                        name="./detailimage/file"
+                        requestSuffix="/detailimage.img.png"
+                        rotateParameter="./detailimage/imageRotate"
+                        xtype="html5smartimage"/>
+                    <detailimageealt
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Product image alt"
+                        name="./detailimagealt"
+                        xtype="textfield"/>
+                    <pdcallminutes
+                        jcr:primaryType="cq:Widget"
+                        defaultValue="call minutes"
+                        fieldLabel="Call Minutes text"
+                        name="./pdcallminutestext"
+                        xtype="textfield"/>
+                    <pdcallminutesdesc
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Call Minutes description text"
+                        name="./pdcallminutesdesctext"
+                        xtype="textfield"/>
+                    <pdsms
+                        jcr:primaryType="cq:Widget"
+                        defaultValue="SMS messages"
+                        fieldLabel="SMS text"
+                        name="./pdsmstext"
+                        xtype="textfield"/>
+                    <pdsmsdesc
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="SMS description text"
+                        name="./pdsmsdesctext"
+                        xtype="textfield"/>
+                    <pdmbdata
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="MB data text"
+                        name="./pdmbdatatext"
+                        xtype="textfield"/>
+                    <pdmbdatadesc
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="MB data description text"
+                        name="./pdmbdatadesctext"
+                        xtype="textfield"/>
+                    <additionalbullets
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Additional text"
+                        name="./pdadditionalbullets"
+                        xtype="textfield"/>
+                    <additionalbulletsdesc
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Additional text description"
+                        name="./pdadditionalbulletsdesc"
+                        xtype="textfield"/>
+                    <roamingtext
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Roaming text"
+                        name="./pdroamingtext"
+                        xtype="textfield"/>
+                    <roamingtextdesc
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Roaming text description"
+                        name="./pdroamingtextdesc"
+                        xtype="textfield"/>
+                </items>
+            </detailsplan>
+            <extraoptions
+                jcr:primaryType="cq:Panel"
+                title="Extra Options"
+                xtype="panel">
+                <items jcr:primaryType="cq:WidgetCollection">
+                    <internationaltext
+                        jcr:primaryType="cq:Widget"
+                        defaultValue="International Calls"
+                        fieldLabel="Add-On title:"
+                        name="./internationalcallstext"
+                        xtype="textfield"/>
+                    <extraoptiondescription
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Description"
+                        name="./extraoptiondesc"
+                        xtype="textfield"/>
+                    <extraimage
+                        jcr:primaryType="cq:Widget"
+                        border="{Boolean}true"
+                        cropParameter="./extraimage/imageCrop"
+                        ddGroups="[media]"
+                        fieldLabel="Extra option image"
+                        fileNameParameter="./extraimage/fileName"
+                        fileReferenceParameter="./extraimage/fileReference"
+                        height="{Long}400"
+                        hideLabel="{Boolean}false"
+                        mapParameter="./extraimage/imageMap"
+                        name="./extraimage/file"
+                        requestSuffix="/extraimage.img.png"
+                        rotateParameter="./extraimage/imageRotate"
+                        xtype="html5smartimage"/>
+                    <extraimageealt
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Extra option image alt"
+                        name="./extraimagealt"
+                        xtype="textfield"/>
+                </items>
+            </extraoptions>
+            <additionalsimimage
+                jcr:primaryType="cq:Panel"
+                title="Additional Sim"
+                xtype="panel">
+                <items jcr:primaryType="cq:WidgetCollection">
+                    <addisimimage
+                        jcr:primaryType="cq:Widget"
+                        border="{Boolean}true"
+                        cropParameter="./addisimimage/imageCrop"
+                        ddGroups="[media]"
+                        fieldLabel="Additional sim image"
+                        fileNameParameter="./addisimimage/fileName"
+                        fileReferenceParameter="./addisimimage/fileReference"
+                        height="{Long}400"
+                        hideLabel="{Boolean}false"
+                        mapParameter="./addisimimage/imageMap"
+                        name="./addisimimage/file"
+                        requestSuffix="/addisimimage.img.png"
+                        rotateParameter="./addisimimage/imageRotate"
+                        xtype="html5smartimage"/>
+                    <addsimimagealt
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Additional sim image alt"
+                        name="./addsimimagealt"
+                        xtype="textfield"/>
+                </items>
+            </additionalsimimage>
+        </items>
+    </items>
+</jcr:root>

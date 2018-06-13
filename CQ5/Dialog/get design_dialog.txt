@@ -1,0 +1,3 @@
+Accessible only in templte level
+
+<%= currentStyle.get("errormsg","Failed")%>";

@@ -1,0 +1,2 @@
+<c:set var="step1inactivetext" value="${properties['installstep1inactivetext']}"/>
+<c:set var="step1inactiveimage" value="${properties['installstep1inactiveimage/fileReference']}"/>

@@ -1,0 +1,9 @@
+
+
+                    <paymentConfirmMessageDuration
+                        jcr:primaryType="cq:Widget"
+                        fieldLabel="Payment Confirmation Message Duration"
+                        fieldDescription="set the number of days the payment confirmation message will be displayed (default value: 2)"
+                        defaultValue="{Long}2"
+                        name="./paymentConfirmMessageDuration"
+                        xtype="numberfield"/>

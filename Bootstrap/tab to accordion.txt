@@ -1,0 +1,60 @@
+<div id="mydiv" class="row">
+</div>
+<script>
+var isMobile=false;
+function updateUI(){
+	tabsToAccordions();
+	if(!isMobile && $(window).width() <= 480){
+		// mobile view instructions
+		tabsToAccordions();
+		isMobile=true;
+	} else if(isMobile) {
+		// desktop view instructions
+		accordionsToTabs();
+		isMobile=false;
+	}
+}
+//changes tabs to accordions (jquery ui)
+function tabsToAccordions(){
+	var accordianHTML='<div id="accFromTab1" class="accFromTab panel-group row accordianPanelGroup">';
+	$('.scrollabletab>.items>div').each(function(index){
+		accordianHTML+='<div id="accFromTabPanel'+index+'"class="accFromTabPanel panel panel-default">';
+			//accordian  header
+			accordianHTML+='<div class="panel-heading" id="accheader'+index+'">';
+				accordianHTML+='<h4 class="panel-title">';
+					$this=$(this);
+					$tabHeader=$this.find('>ul>li');
+					accordianHTML+='<div data-target="#accbody'+index+'" data-parent="#accFromTab1" data-toggle="collapse" class="accordion-toggle collapsed">';
+					accordianHTML+=$tabHeader.html();
+					accordianHTML+='<span class="expandIcon"></span>';
+			accordianHTML+='</div></h4></div>';
+			//accordian body
+			accordianHTML+='<div class="panel-body removePanelBodyPadding panel-collapse collapse" id="accbody'+index+'" style="height: 0px;">';
+				accordianHTML+='<div id="accdata'+index+'">';
+					var tabPaneId=$tabHeader.find('a').attr('href').replace('#','');
+					var $tabBody =$('.tab-content>.tab-pane[id=' + tabPaneId + ']');
+					accordianHTML+=$tabBody.html();
+				accordianHTML+='</div>';
+			accordianHTML+='</div>';
+			
+		accordianHTML+='</div>';		
+	});
+	accordianHTML+='</div>';		
+	$('#mydiv').html(accordianHTML);
+	$('.TabOuter').hide();
+	$('.tab-content').hide();
+	
+	
+}
+//changes accordions to tabs (jquery ui)
+function accordionsToTabs(){
+	
+}
+
+$(function() {	
+	// event handler for window resize
+	$(window).resize(function(e){
+		updateUI();
+	});
+	updateUI();
+	

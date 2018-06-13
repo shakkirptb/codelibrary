@@ -1,0 +1,95 @@
+/* For upload image overlay */
+	#tootipConfig{
+		display:block;
+		height: auto;
+		width:100%
+	}
+	#demoToolTipBody{
+		position: relative;
+		transform: none;
+		border: 1px solid #eee;
+	}
+	.tooltipComponent{
+		display: inline-block;
+	}
+	.tooltipComponent[id^="cq-gen"]{
+		display: block;
+	}
+	.toolTipOverLay .tHeader,.toolTipOverLay .tText{
+		display:none;
+	}
+	.toolTip  {
+	    position: fixed;	
+	    font-family: BloomSpeakOT, sans-serif;;
+	    top: 0;
+	    right: 0;
+	    bottom: 0;
+	    left: 0;
+	    background: rgba(0, 0, 0, 0.5);
+	    z-index: 99999;
+	    
+	    visibility: hidden;
+  		opacity: 0;
+  		-webkit-transition: visibility 400ms ease-in,opacity 400ms ease-in;
+    	-moz-transition: visibility 400ms ease-in,opacity 400ms ease-in;
+   		transition: visibility 400ms ease-in,opacity 400ms ease-in;
+	}
+	
+	.toolTipBody{    
+	    width: 80%;
+	    height: auto;
+	    top: 0%;
+	    right: 10%;   
+	    left: 10%;
+	    position: fixed;   
+	    border-radius: 10px;
+	    background: #FFFFFF;  
+		transform: translate(0, 50vw);
+	}
+	
+	.ttClose
+	{    
+		color: #00aadd;
+		font-family: BloomSpeakOTBold;
+		font-size: 140%;
+	    vertical-align: middle;
+	    text-align: center;
+	    text-decoration: none;
+	    font-weight: bold;
+	    padding: 3% 0 3% 0;
+	    margin: 0% 0 0 0;
+	    border-style: solid;
+	    border-width: 1px 0 0 0;
+	    border-color: #ddd;
+	    /*
+	    -moz-border-image: url("/etc/designs/phonegap/mycare-app-pl/clientlibsall/css/image/LineBreak.png") 10 0 0 repeat;
+	    -webkit-border-image: url("/etc/designs/phonegap/mycare-app-pl/clientlibsall/css/image/LineBreak.png") 10 0 0 repeat;
+	    -o-border-image: url("/etc/designs/phonegap/mycare-app-pl/clientlibsall/css/image/LineBreak.png") 10 0 0 repeat;
+	    border-image: url("/etc/designs/phonegap/mycare-app-pl/clientlibsall/css/image/LineBreak.png") 10 0 0 fill repeat;
+	    */
+	}
+	
+	.ttClose img
+	{
+	  height: 25%;	 
+	  Margin: 0 3% 0.5% 0;  
+	}
+	
+	.ttHeader{
+		 text-align: center;
+		 color: #333333 !important;
+		 font-family: BloomSpeakOTBold !important;
+		 font-size: 140% !important;
+		 font-weight: bold;		
+		 margin-top: 3%; 
+	}
+	
+	.ttText {
+	    color: #777;
+	    font-family: BloomSpeakOTBold !important;
+	    font-size: 120%;
+	    margin: 3% 5%;
+	    overflow: hidden;
+	    text-align: center;
+	}
+	

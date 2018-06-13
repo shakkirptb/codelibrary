@@ -1,0 +1,21 @@
+						<div class="dropdown">
+							<div class="input-group dropdown-toggle" data-toggle="dropdown">
+	    						<input type="text"  id="newTitle" class="form-control textboxAddress fullWidth" placeholder="Choose"/>
+	    						<span class="input-group-addon">
+	        						<i class="glyphicon glyphicon-down-arrow"></i>
+	    						</span>
+							</div>
+				  			<ul id="titleDropMenu" class="dropdown-menu">
+							    <li><a href="#">Mr</a></li>
+							    <li><a href="#">Miss</a></li>
+							    <li><a href="#">Mrs</a></li>
+							</ul>
+						</div>
+
+	$('#titleDropMenu li').on(clickHandler,function(){
+        	$('#newTitle').val($(this).text());
+   	});
+
+.glyphicon-down-arrow::after {
+    content: url("/etc/designs/myproj/media/images/accordion_gray_down_arrow.png");
+}

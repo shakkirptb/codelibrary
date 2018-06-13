@@ -1,0 +1,2 @@
+$('#spanid').bttooltip(); did not work but $('span#spanid').bttooltip(); worked!
+because two tooltip with same ID

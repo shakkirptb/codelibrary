@@ -1,0 +1,24 @@
+SlingBindings bindings = (SlingBindings) request.getAttribute(SlingBindings.class.getName());
+		SlingScriptHelper sling = bindings.getSling();
+
+		String componentPath  = sling.getService(MyAppConfiguration.class).getConfigurationValue("aem.app.tooltip");
+
+==========
+in JSP
+==========
+<upc:action bean="com.lgi.mycare.app.page.MyCareConfigurations" id="MyAppConfigs" />
+
+var homePagePath = '${MyAppConfigs.homePagePath}';
+
+=======
+in Java
+========
+homePagePath = getService(MyAppConfiguration.class).getHomePagePath(getCurrentPage()); 
+
+=======
+SlingBindings bindings = (SlingBindings) request.getAttribute(SlingBindings.class.getName());
+		SlingScriptHelper sling = bindings.getSling();
+
+		String componentPath  = sling.getService(MyAppConfiguration.class).getConfigurationValue("aem.app.tooltip");
+
+=======

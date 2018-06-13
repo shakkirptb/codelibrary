@@ -1,0 +1,6 @@
+java -jar filename -gui
+
+
+set path=C:\Program Files\Java\jdk1.7.0_15\bin;%path%
+ECHO %path%
+java -jar aem-author-4502.jar -gui 

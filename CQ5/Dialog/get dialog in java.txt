@@ -1,0 +1,4 @@
+import org.apache.sling.api.resource.ValueMap;
+// reading properties from dialog
+ValueMap vm = getProperties();
+String dialogvalue= vm.get("descforamount", "");

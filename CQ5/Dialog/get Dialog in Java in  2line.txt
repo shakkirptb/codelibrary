@@ -1,0 +1,5 @@
+							/*ValueMap vMap = slingRequest.getResource().adaptTo(ValueMap.class);
+							if (vMap.containsKey("nopdfmessage")) {
+								sResult =  "" + vMap.get("nopdfmessage","");
+							}
+							*/

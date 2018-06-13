@@ -1,0 +1,9 @@
+https://docs.jboss.org/jbossdna/0.7/manuals/reference/html/jcr-query-and-search.html#jcr-xpath-query-language
+
+
+/jcr:root/content/www-myproj-com/en/mobile//element(*, nt:unstructured) [jcr:like(@sling:resourceType, '%upc-generic/components/handsetfinance%')]
+
+SELECT * FROM [nt:unstructured] AS node WHERE ISDESCENDANTNODE(node, "/content/www-myproj-com/en/mobile") AND CONTAINS([sling:resourceType], "upc-generic/components/handsetfinance")
+
+
+ssl02.upcbroadband.com
