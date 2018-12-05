@@ -1,0 +1,1 @@
+mvn archetype:generate -DgroupId="com.shakkir.freestuff" -DartifactId="freestuff-core" -DarchetypeArtifactId="maven-archetype-quickstart" -DinteractiveMode="false"
