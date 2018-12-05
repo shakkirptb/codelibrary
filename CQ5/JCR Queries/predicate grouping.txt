@@ -1,0 +1,42 @@
+p.limit=-1
+
+group.p.or=true
+
+group.1_group.path=/content/jpm-am-aem
+group.1_group.type=cq:Page
+group.1_group.1_property=@jcr:content/cq:lastReplicationAction
+group.1_group.1_property.value=Activate
+
+
+group.2_group.path=/content/dam/jpm-am-aem
+group.2_group.type=dam:Asset
+group.2_group.property=@jcr:content/cq:lastReplicationAction
+group.2_group.property.value=Activate
+
+0_daterange.lowerBound=2018-09-20T03:03:00
+0_daterange.upperBound=2018-11-20T03:03:00
+0_daterange.lowerOperation=>=
+0_daterange.upperOperation=<=
+0_daterange.property=jcr:created
+
+
+
+  */
+    @Override
+    public List<Resource> getList(Map<String, String> params, String reportType) throws RepositoryException {
+        /** call specific methods for specific report if required */
+        List<Resource> allResults=new ArrayList<>();
+        if (ReportConstants.REPORT_ASSET_DEPENDENCY.equals(reportType)) {
+            allResults= generateAssetDependencyReport(params);
+        }else if(ReportConstants.REPORT_CONTENT_EXPIRY.equals(reportType)){
+            /**pages scheduled for deactivation*/
+            final List<Resource> pageResults=getPagesScheduledForDeactiovation(params);
+            allResults.addAll(pageResults);
+            /**assets scheduled for deactivation*/
+            final List<Resource> assetsResults=executeQuery(params);
+            allResults.addAll(assetsResults);
+        }else{
+            allResults=executeQuery(params);
+        }
+        return allResults;
+    }
