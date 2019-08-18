@@ -27,4 +27,4 @@ curl --noproxy '*' -u mshakkir:Maxn@010 -F file=@"myproj-uk.jar" -F name="myproj
 
 
 Bundle upload and install
-curl --noproxy '*' -u mshakkir:Maxn@010 -F action=install -F bundlestartlevel=20 -F bundlefile=@"myproj-uk-15.84.282.jar" http://xx.xx.xx.9:4505/system/console/bundles
+curl --noproxy '*' -u username:password -F action=install -F bundlestartlevel=20 -F bundlefile=@"myproj-uk-15.84.282.jar" http://xx.xx.xx.9:4505/system/console/bundles
