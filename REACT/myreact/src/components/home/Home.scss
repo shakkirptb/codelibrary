@@ -1,0 +1,17 @@
+.Home{
+    display: grid;
+    grid-template-columns: 30% auto;
+    grid-template-rows: 300px 200px;
+    grid-template-areas: "sidebar contentarea"
+                         "sidebar bestseller";
+
+    .sidebar{
+        grid-area: sidebar;
+    }
+    .content-area{
+        grid-area: contentarea;
+    }
+    .best-seller{
+        grid-area: bestseller;
+    }
+}

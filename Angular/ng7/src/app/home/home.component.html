@@ -1,0 +1,8 @@
+<h1 [class.gray]="h1Style">Home</h1>
+<button [ngClass]="{
+    'green':!h1Style,
+    'large':largeFont
+}" 
+(click)="firstClick()" 
+(mouseenter)="zoomIn()"
+(mouseleave)="zoomOut()">Click me</button>

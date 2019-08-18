@@ -1,0 +1,17 @@
+.Footer{
+    
+    ul{
+        padding: 0 20px;
+        display: flex;
+        flex-direction: row;
+        list-style: none;
+        justify-content: space-evenly;
+        li{
+            
+            a{
+                font-size: 14px;
+                color: grey;
+            }
+        }
+    }
+}
