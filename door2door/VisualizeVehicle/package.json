@@ -1,0 +1,15 @@
+{
+  "name": "nodeapp",
+  "version": "1.0.0",
+  "description": "node sample app",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "shakkirptb@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
+  }
+}
