@@ -6,3 +6,5 @@
 org.eclipse.core.resources.prefs
 org.eclipse.jdt.core.prefs
 org.eclipse.m2e.core.prefs
+/door2door/VisualizeVehicle/node_modules
+/door2door/VisualizeVehicle/package-lock.json
