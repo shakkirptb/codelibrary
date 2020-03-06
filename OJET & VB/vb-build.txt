@@ -1,1 +1,5 @@
 grunt vb-build --id=DX4C_Customer360 --ver=1.0 --url="https://<domain>/ic/builder/" --username=<pod-username> --password=<pod-paddword>
+
+
+https://confluence.oraclecorp.com/confluence/pages/viewpage.action?spaceKey=ABCS&title=Visual+Application+Local+Build
+
