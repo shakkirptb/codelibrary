@@ -1,0 +1,12 @@
+   async function readFileAsDataURL(file) {
+      let jsonObj = await new Promise((resolve) => {
+          let reader = new FileReader();
+          reader.onload = (e) => resolve(JSON.parse(reader.result));
+          reader.readAsText(file);
+      });
+
+      console.log(jsonObj);
+
+      return jsonObj;
+    }    
+    return readFileAsDataURL(file);
