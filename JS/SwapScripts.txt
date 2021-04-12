@@ -1,0 +1,23 @@
+        //load SomeBigScript asynchronously
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                (async ()=> {
+                
+                    const addScript =  new Promise((res,rej)=>{
+                        var script = document.createElement('script');
+                        script.innerText = this.responseText
+                        script.onload = ()=> res();
+                        document.head.appendChild(script);
+                    })
+                    
+                    doSomethingYouGottaDoBeforeNewScriptExecution();
+                    
+                    //wait for asynchronous appendChild
+                    await addScript;
+                    
+                })();
+            }
+        };
+        xhttp.open("GET", "SomeBigScript.js", true);
+        xhttp.send();
