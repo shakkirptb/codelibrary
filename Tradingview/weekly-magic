@@ -1,38 +1,45 @@
-//@version=3
+//@version=4
 strategy(title="Weekly Magic", shorttitle="Weekly Magic", overlay=true)
 // Make input options that configure backtest date range
-startDate = input(title="Start Date", type=integer, defval=1, minval=1, maxval=31)
-startMonth = input(title="Start Month", type=integer,defval=1, minval=1, maxval=12)
-startYear = input(title="Start Year", type=integer,defval=2021, minval=1800, maxval=2100)
+startDate = input(title="Start Date", type=input.integer, defval=1, minval=1, maxval=31)
+startMonth = input(title="Start Month", type=input.integer, defval=1, minval=1, maxval=12)
+startYear = input(title="Start Year", type=input.integer, defval=2021, minval=1800, maxval=2100)
 
-endDate = input(title="End Date", type=integer, defval=1, minval=1, maxval=31)
-endMonth = input(title="End Month", type=integer,defval= 12, minval=1, maxval=12)
-endYear = input(title="End Year", type=integer, defval=2021, minval=1800, maxval=2100)
-inDateRange = (time >= timestamp(syminfo.timezone, startYear,startMonth, startDate, 0, 0)) and (time < timestamp(syminfo.timezone, endYear, endMonth, endDate, 0, 0))
-     
-histOpen(days) => security(tickerid, "D", open[days], lookahead = barmerge.lookahead_on)
-histClose(days) => security(tickerid, "D", close[days], lookahead = barmerge.lookahead_on)    
+endDate = input(title="End Date", type=input.integer, defval=1, minval=1, maxval=31)
+endMonth = input(title="End Month", type=input.integer, defval=12, minval=1, maxval=12)
+endYear = input(title="End Year", type=input.integer, defval=2021, minval=1800, maxval=2100)
+inDateRange = time >= timestamp(syminfo.timezone, startYear, startMonth, startDate, 0, 0) and 
+   time < timestamp(syminfo.timezone, endYear, endMonth, endDate, 0, 0)
+
+histOpen(days) =>
+    security(syminfo.tickerid, "D", open[days], lookahead=barmerge.lookahead_on)
+histClose(days) =>
+    security(syminfo.tickerid, "D", close[days], lookahead=barmerge.lookahead_on)
 
 lastClose = histClose(1)
 lastOPen = histOpen(1)
 
-volatile = abs(open-close) > abs(lastOPen-lastClose)
+volatile = abs(open - close) > abs(lastOPen - lastClose)
 
 candleColorToday = open[0] < close[0] ? 1 : 0
 candleColorPrev = lastOPen[0] < lastClose[0] ? 1 : 0
 
-//lastClose = security(syminfo.tickerid, "D", close[1], lookahead = barmerge.lookahead_on)
-//plot(lastClose, "Last Close", change(lastClose) ? na : color.blue, offset = - 1)
-if(inDateRange and dayofweek != monday and dayofweek != tuesday and candleColorToday == 0 and volatile)
+
+if inDateRange and dayofweek != dayofweek.monday and dayofweek != dayofweek.tuesday and candleColorToday == 0 and volatile
     strategy.close_all()
 
-if(inDateRange and dayofweek == friday and candleColorToday == 1) 
-    strategy.order("buy", true,1 )
-    
-    
-plot(strategy.position_size,"posiiton",#000055,2)    
+if inDateRange and dayofweek == dayofweek.friday and candleColorToday == 1
+    strategy.order("buy", true)
+
+
+plot(strategy.position_size, "posiiton", #000055, 2)
 
 //study(title="Weekly Magic", shorttitle="Weekly Magic", overlay=true)
-c = black
-bgColor = (dayofweek == thursday) ? color(c, 85) : (dayofweek == friday) ? color(c, 80) : (dayofweek == monday) ? #008800 : color(white, 0)
-bgcolor(color = bgColor)
+c = color.black
+color_1 = color.new(c, 85)
+color_2 = color.new(c, 80)
+color_3 = color.new(color.white, 0)
+bgColor = dayofweek == dayofweek.thursday ? color_1 : 
+   dayofweek == dayofweek.friday ? color_2 : 
+   dayofweek == dayofweek.monday ? #008800 : color_3
+bgcolor(color=bgColor)
