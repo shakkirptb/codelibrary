@@ -94,8 +94,9 @@ openingDayOfWeek = isOpeningDayOfWeek ? dayofweek : isTuesday ? dayofweek[1] : d
 
 isBuyCheckpoint =  isClosingDayOfWeek// or (isOpeningDayOfWeek and closingDayOfWeek == dayofweek.thursday) 
 isSellCheckpoint = not isSaturday and not isMonday and not isTuesday and not(openingDayOfWeek == dayofweek.tuesday and isWednesday)
+moreBuyOpp = (isSeq(_red,_red,_red) or isSeq(_red,_green,_green)) and strategy.openprofit <= 0
 
-bulling = (redRed and bullishCurve) or redToGreen or ((equalGreen)  and strategy.openprofit <= 0) or (moreTrade and (isSeq(_red,_red,_red) or isSeq(_red,_green,_green)) and strategy.openprofit < 0)// and strategy.position_size == 0) //or equalGreen
+bulling = (redRed and bullishCurve) or redToGreen or ((equalGreen)  and strategy.openprofit <= 0) or (moreTrade and moreBuyOpp)// and strategy.position_size == 0) //or equalGreen
 bearing = (greenGreen and bearishCurve) or greenToRed //or (candleColor == _green and strategy.openprofit > 0)//or redRed//or equalRed
 
 limit = historic(hl2,0)
@@ -105,7 +106,7 @@ if skipInterval or inDateRange
     if isSellCheckpoint and bearing
         isSell := true
         strategy.close_all(comment = "closed",when = strategy.openprofit > 0)
-    if (isBuyCheckpoint and bulling) or (offCheckpointbuy and (isSeq(_red,_red,_red) or isSeq(_red,_green,_green)) and strategy.openprofit < 0)
+    if (isBuyCheckpoint and bulling) or (offCheckpointbuy and moreBuyOpp)
         isBuy:=true
         strategy.order("buy", true,comment = "added")//add qty
 
