@@ -104,7 +104,7 @@ isSell = false
 isBuy = false
 if skipInterval or inDateRange
     if isSellCheckpoint and bearing
-        isSell := true
+        isSell := strategy.openprofit > 0
         strategy.close_all(comment = "closed",when = strategy.openprofit > 0)
     if (isBuyCheckpoint and bulling) or (offCheckpointbuy and moreBuyOpp)
         isBuy:=true
