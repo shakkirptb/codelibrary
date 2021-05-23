@@ -3,6 +3,8 @@ strategy(title="Weekly Magic", shorttitle="Weekly Magic", overlay=true)
 
 skipInterval =  input(title="Calculate for the whole time", type=input.bool, defval=true, tooltip = "ignore the time interval")
 ignoreSaturday =  input(title="Ignore Saturday", type=input.bool, defval=true, tooltip = "do not consider saturday as end of week")
+moreTrade =  input(title="Take more chances", type=input.bool, defval=false, tooltip = "more adjustments")
+offCheckpointbuy =  input(title="Off Checkpoint buy", type=input.bool, defval=false, tooltip = "buy anytime for balance")
 
 // Make input options that configure backtest date range
 startDate = input(title="Start Date", type=input.integer, defval=1, minval=1, maxval=31)
@@ -15,47 +17,58 @@ endYear = input(title="End Year", type=input.integer, defval=2021, minval=1800, 
 inDateRange = time >= timestamp(syminfo.timezone, startYear, startMonth, startDate, 0, 0) and 
    time < timestamp(syminfo.timezone, endYear, endMonth, endDate, 0, 0)
 
-histOpen(days) =>
-    security(syminfo.tickerid, "D", open[days], lookahead=barmerge.lookahead_on)
-histClose(days) =>
-    security(syminfo.tickerid, "D", close[days], lookahead=barmerge.lookahead_on)
+historic(series,days) =>
+    security(syminfo.tickerid, "D", series[days], lookahead=barmerge.lookahead_on)
 
-lastClose = histClose(1)
-lastOpen = histOpen(1)
+open0 = historic(open,0)
+close0 = historic(close,0)
+
+open1 = historic(open,1)
+close1 = historic(close,1)
+
+open2 = historic(open,2)
+close2 = historic(close,2)
+
 
 _green = 1
 _unch = 0
 _red = -1
 
-ocd = close - open
-ocdLast = lastClose - lastOpen
+//open close difference
+ocd0 = close0 - open0
+ocd1 = close1 - open1
+ocd2 = close2 - open2
+//candle size
+candleSize = abs(ocd0)
+candleSize1 = abs(ocd1)
+candleSize2 = abs(ocd2)
+//candle color
+candleColor =  ocd0 >= 0 ? _green : _red 
+candleColor1 = ocd1 > 0 ? _green : _red
+candleColor2 = ocd2 > 0 ? _green : _red
 
-candleSize = abs(ocd)
-lastCandleSize = abs(ocdLast)
 
-candleColorToday =  ocd >= 0 ? _green : _red 
-candleColorPrev = ocdLast > 0 ? _green : _red
+isSeq(c2,c1,c0) =>
+     (candleColor2 == c2 or c2==0) and candleColor1 == c1 and candleColor == c0
 
-biggerBodyThanLastDay = candleSize > lastCandleSize
-candleSizeToPrev = (candleSize/lastCandleSize)*100
-lastCandleSizeToToday = (lastCandleSize/candleSize)*100
+//comparison 
+biggerBodyThanLastDay = candleSize > candleSize1
+candleSizeToPrev = (candleSize/candleSize1)*100
+lastCandleSizeToToday = (candleSize1/candleSize)*100
 
-redToGreen = candleColorPrev == _red and candleColorToday == _green
-greenToRed = candleColorPrev == _green and candleColorToday == _red
-greenGreen = candleColorPrev == _green and candleColorToday == _green
-redRed = candleColorPrev == _red and candleColorToday == _red
+redToGreen = isSeq(0,_red,_green)
+greenToRed = isSeq(0,_green,_red)
+greenGreen = isSeq(0,_green,_green)
+redRed = isSeq(0,_red,_red)
 
 reversalCurvePercent = input(title="size reduction for trend shift (%)", type=input.integer, defval=25, tooltip = "how much a candle body size has to drop from the prev candle size to be treated as a trend shift")
 comparableCandleSize = input(title="comparable candle size (%)", type=input.integer, defval=40,tooltip = "candle body size to previous candle to be qualify as a continuation of current trend")
 
-bullishCurve = candleSizeToPrev <= reversalCurvePercent and close > lastClose
-bearishCurve = candleSizeToPrev <= reversalCurvePercent and close < lastClose
+bullishCurve = candleSizeToPrev <= reversalCurvePercent and close0 > close1
+bearishCurve = candleSizeToPrev <= reversalCurvePercent and close0 < close1
 
-equalGreen = greenGreen and candleSizeToPrev >= comparableCandleSize
-equalRed = redRed and candleSizeToPrev >= comparableCandleSize
-
-bulling = (redRed and bullishCurve) or redToGreen //or equalGreen
-bearing = (greenGreen and bearishCurve) or greenToRed //or equalRed
+equalGreen = isSeq(_red,_green,_green) and candleSizeToPrev >= comparableCandleSize
+equalRed = isSeq(_green,_red,_red) and candleSizeToPrev >= comparableCandleSize
 
 //var dayNum = dayNum == na ?  0 : dayNum
 //offFriday = dayofweek == dayofweek.monday and dayNum != 5 ? 0 : 
@@ -69,26 +82,41 @@ isFriday = dayofweek == dayofweek.friday
 isSaturday = dayofweek == dayofweek.saturday
 
 
+
+
 wasMondayOff = isTuesday and dayofweek[1] != dayofweek.monday
 isOpeningDayOfWeek = isMonday or wasMondayOff
 wasEndOfWeekOff = isOpeningDayOfWeek and (dayofweek[1] == dayofweek.thursday)
-isClosingDayOfWeek = (not ignoreSaturday and isSaturday) or isFriday
+isClosingDayOfWeek = isFriday //or (ignoreSaturday and isSaturday)
 
 closingDayOfWeek = isOpeningDayOfWeek ? dayofweek[1] : isTuesday ? dayofweek[2] : dayofweek.friday
 openingDayOfWeek = isOpeningDayOfWeek ? dayofweek : isTuesday ? dayofweek[1] : dayofweek.monday
 
 isBuyCheckpoint =  isClosingDayOfWeek// or (isOpeningDayOfWeek and closingDayOfWeek == dayofweek.thursday) 
-isSellCheckpoint = not isMonday and not isTuesday and not(openingDayOfWeek == dayofweek.tuesday and isWednesday)
+isSellCheckpoint = not isSaturday and not isMonday and not isTuesday and not(openingDayOfWeek == dayofweek.tuesday and isWednesday)
 
+bulling = (redRed and bullishCurve) or redToGreen or ((equalGreen)  and strategy.openprofit <= 0) or (moreTrade and (isSeq(_red,_red,_red) or isSeq(_red,_green,_green)) and strategy.openprofit < 0)// and strategy.position_size == 0) //or equalGreen
+bearing = (greenGreen and bearishCurve) or greenToRed //or (candleColor == _green and strategy.openprofit > 0)//or redRed//or equalRed
 
+limit = historic(hl2,0)
+isSell = false
+isBuy = false
 if skipInterval or inDateRange
     if isSellCheckpoint and bearing
-        strategy.close_all()
-    if isBuyCheckpoint and bulling
-        strategy.order("buy", true)
+        isSell := true
+        strategy.close_all(comment = "closed",when = strategy.openprofit > 0)
+    if (isBuyCheckpoint and bulling) or (offCheckpointbuy and (isSeq(_red,_red,_red) or isSeq(_red,_green,_green)) and strategy.openprofit < 0)
+        isBuy:=true
+        strategy.order("buy", true,comment = "added")//add qty
 
+plotshape(isSell,text="sell",location = location.top,color=#cc0000, style = shape.triangledown)
+plotshape(isBuy,text="buy",location = location.bottom,color=#00cc00, style = shape.triangleup)
 
-plot(strategy.position_size, "position", #000055, 2)
+plotColorRedGreen = strategy.openprofit > 0 ? #00aa00 : strategy.openprofit < 0 ? #cc0000 : color.black
+
+//plot(series = strategy.position_size, title = "position", color = #000055, linewidth =  2)
+plot(series = strategy.openprofit, title = "open profit", color = plotColorRedGreen,linewidth =  2)
+//plot(series = strategy.netprofit, title = "net profit", color = #000055,linewidth =  2)
 
 //paint the days of week
 c = color.black
