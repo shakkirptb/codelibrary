@@ -1,5 +1,9 @@
 //@version=4
 strategy(title="Weekly Magic", shorttitle="Weekly Magic", overlay=true)
+
+skipInterval =  input(title="Calculate for the whole time", type=input.bool, defval=true, tooltip = "ignore the time interval")
+ignoreSaturday =  input(title="Ignore Saturday", type=input.bool, defval=true, tooltip = "do not consider saturday as end of week")
+
 // Make input options that configure backtest date range
 startDate = input(title="Start Date", type=input.integer, defval=1, minval=1, maxval=31)
 startMonth = input(title="Start Month", type=input.integer, defval=1, minval=1, maxval=12)
@@ -41,8 +45,8 @@ greenToRed = candleColorPrev == _green and candleColorToday == _red
 greenGreen = candleColorPrev == _green and candleColorToday == _green
 redRed = candleColorPrev == _red and candleColorToday == _red
 
-reversalCurvePercent = input(title="size reduction for trend shift", type=input.integer, defval=25)
-comparableCandleSize = input(title="comparable candle size", type=input.integer, defval=40)
+reversalCurvePercent = input(title="size reduction for trend shift (%)", type=input.integer, defval=25, tooltip = "how much a candle body size has to drop from the prev candle size to be treated as a trend shift")
+comparableCandleSize = input(title="comparable candle size (%)", type=input.integer, defval=40,tooltip = "candle body size to previous candle to be qualify as a continuation of current trend")
 
 bullishCurve = candleSizeToPrev <= reversalCurvePercent and close > lastClose
 bearishCurve = candleSizeToPrev <= reversalCurvePercent and close < lastClose
@@ -57,14 +61,27 @@ bearing = (greenGreen and bearishCurve) or greenToRed //or equalRed
 //offFriday = dayofweek == dayofweek.monday and dayNum != 5 ? 0 : 
 //dayNum = dayofweek == dayofweek.monday ? 1 : dayofweek == dayofweek.thursday ? 4 : dayofweek == dayofweek.friday ? 5 : 2
 
-//offFriday = dayofweek == dayofweek.monday and prevDay != dayofweek.friday
-//offMonday = dayofweek == dayofweek.tuesday and prevDay != dayofweek.monday
+isMonday = dayofweek == dayofweek.monday
+isTuesday = dayofweek == dayofweek.tuesday
+isWednesday = dayofweek == dayofweek.wednesday
+isThursday = dayofweek == dayofweek.thursday
+isFriday = dayofweek == dayofweek.friday
+isSaturday = dayofweek == dayofweek.saturday
 
-isBuyCheckpoint =  dayofweek == dayofweek.friday 
-isSellCheckpoint = dayofweek != dayofweek.monday and dayofweek != dayofweek.tuesday and bearing
+
+wasMondayOff = isTuesday and dayofweek[1] != dayofweek.monday
+isOpeningDayOfWeek = isMonday or wasMondayOff
+wasEndOfWeekOff = isOpeningDayOfWeek and (dayofweek[1] == dayofweek.thursday)
+isClosingDayOfWeek = (not ignoreSaturday and isSaturday) or isFriday
+
+closingDayOfWeek = isOpeningDayOfWeek ? dayofweek[1] : isTuesday ? dayofweek[2] : dayofweek.friday
+openingDayOfWeek = isOpeningDayOfWeek ? dayofweek : isTuesday ? dayofweek[1] : dayofweek.monday
+
+isBuyCheckpoint =  isClosingDayOfWeek// or (isOpeningDayOfWeek and closingDayOfWeek == dayofweek.thursday) 
+isSellCheckpoint = not isMonday and not isTuesday and not(openingDayOfWeek == dayofweek.tuesday and isWednesday)
 
 
-if inDateRange
+if skipInterval or inDateRange
     if isSellCheckpoint and bearing
         strategy.close_all()
     if isBuyCheckpoint and bulling
@@ -73,15 +90,18 @@ if inDateRange
 
 plot(strategy.position_size, "position", #000055, 2)
 
-//study(title="Weekly Magic", shorttitle="Weekly Magic", overlay=true)
+//paint the days of week
 c = color.black
-color_1 = color.new(c, 85)
-color_2 = color.new(c, 80)
-color_3 = #00aa00
-color_4 = color.new(color.white, 0)
-bgColor = dayofweek == dayofweek.thursday ? color_1 : 
-   dayofweek == dayofweek.friday ? color_2 : 
-   dayofweek == dayofweek.monday ? color_3 : color_4
+color_thurday = color.new(c, 85)
+color_friday = color.new(c, 80)
+color_saturday = #aa0000
+color_monday = #00aa00
+color_tuesday = #0000aa
+color_other = color.new(color.white, 0)
+bgColor = isThursday ? color_thurday : 
+   isFriday ? color_friday : 
+   isSaturday ? color_saturday : 
+   isMonday ? color_monday : 
+   wasMondayOff ? color_tuesday : color_other
 bgcolor(color=bgColor)
 
-//prevDay = dayofweek
