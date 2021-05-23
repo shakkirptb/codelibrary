@@ -3,7 +3,7 @@ strategy(title="Weekly Magic", shorttitle="Weekly Magic", overlay=true)
 // Make input options that configure backtest date range
 startDate = input(title="Start Date", type=input.integer, defval=1, minval=1, maxval=31)
 startMonth = input(title="Start Month", type=input.integer, defval=1, minval=1, maxval=12)
-startYear = input(title="Start Year", type=input.integer, defval=2021, minval=1800, maxval=2100)
+startYear = input(title="Start Year", type=input.integer, defval=2020, minval=1800, maxval=2100)
 
 endDate = input(title="End Date", type=input.integer, defval=1, minval=1, maxval=31)
 endMonth = input(title="End Month", type=input.integer, defval=12, minval=1, maxval=12)
@@ -17,29 +17,71 @@ histClose(days) =>
     security(syminfo.tickerid, "D", close[days], lookahead=barmerge.lookahead_on)
 
 lastClose = histClose(1)
-lastOPen = histOpen(1)
+lastOpen = histOpen(1)
 
-volatile = abs(open - close) > abs(lastOPen - lastClose)
+_green = 1
+_unch = 0
+_red = -1
 
-candleColorToday = open[0] < close[0] ? 1 : 0
-candleColorPrev = lastOPen[0] < lastClose[0] ? 1 : 0
+ocd = close - open
+ocdLast = lastClose - lastOpen
+
+candleSize = abs(ocd)
+lastCandleSize = abs(ocdLast)
+
+candleColorToday =  ocd >= 0 ? _green : _red 
+candleColorPrev = ocdLast > 0 ? _green : _red
+
+biggerBodyThanLastDay = candleSize > lastCandleSize
+candleSizeToPrev = (candleSize/lastCandleSize)*100
+lastCandleSizeToToday = (lastCandleSize/candleSize)*100
+
+redToGreen = candleColorPrev == _red and candleColorToday == _green
+greenToRed = candleColorPrev == _green and candleColorToday == _red
+greenGreen = candleColorPrev == _green and candleColorToday == _green
+redRed = candleColorPrev == _red and candleColorToday == _red
+
+reversalCurvePercent = input(title="size reduction for trend shift", type=input.integer, defval=25)
+comparableCandleSize = input(title="comparable candle size", type=input.integer, defval=40)
+
+bullishCurve = candleSizeToPrev <= reversalCurvePercent and close > lastClose
+bearishCurve = candleSizeToPrev <= reversalCurvePercent and close < lastClose
+
+equalGreen = greenGreen and candleSizeToPrev >= comparableCandleSize
+equalRed = redRed and candleSizeToPrev >= comparableCandleSize
+
+bulling = (redRed and bullishCurve) or redToGreen //or equalGreen
+bearing = (greenGreen and bearishCurve) or greenToRed //or equalRed
+
+//var dayNum = dayNum == na ?  0 : dayNum
+//offFriday = dayofweek == dayofweek.monday and dayNum != 5 ? 0 : 
+//dayNum = dayofweek == dayofweek.monday ? 1 : dayofweek == dayofweek.thursday ? 4 : dayofweek == dayofweek.friday ? 5 : 2
+
+//offFriday = dayofweek == dayofweek.monday and prevDay != dayofweek.friday
+//offMonday = dayofweek == dayofweek.tuesday and prevDay != dayofweek.monday
+
+isBuyCheckpoint =  dayofweek == dayofweek.friday 
+isSellCheckpoint = dayofweek != dayofweek.monday and dayofweek != dayofweek.tuesday and bearing
 
 
-if inDateRange and dayofweek != dayofweek.monday and dayofweek != dayofweek.tuesday and candleColorToday == 0 and volatile
-    strategy.close_all()
+if inDateRange
+    if isSellCheckpoint and bearing
+        strategy.close_all()
+    if isBuyCheckpoint and bulling
+        strategy.order("buy", true)
 
-if inDateRange and dayofweek == dayofweek.friday and candleColorToday == 1
-    strategy.order("buy", true)
 
-
-plot(strategy.position_size, "posiiton", #000055, 2)
+plot(strategy.position_size, "position", #000055, 2)
 
 //study(title="Weekly Magic", shorttitle="Weekly Magic", overlay=true)
 c = color.black
 color_1 = color.new(c, 85)
 color_2 = color.new(c, 80)
-color_3 = color.new(color.white, 0)
+color_3 = #00aa00
+color_4 = color.new(color.white, 0)
 bgColor = dayofweek == dayofweek.thursday ? color_1 : 
    dayofweek == dayofweek.friday ? color_2 : 
-   dayofweek == dayofweek.monday ? #008800 : color_3
+   dayofweek == dayofweek.monday ? color_3 : color_4
 bgcolor(color=bgColor)
+
+//prevDay = dayofweek
