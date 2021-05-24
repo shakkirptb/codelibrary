@@ -5,7 +5,7 @@ skipInterval =  input(title="Calculate for the whole time", type=input.bool, def
 ignoreSaturday =  input(title="Ignore Saturday", type=input.bool, defval=true, tooltip = "do not consider saturday as end of week")
 strictWithTrendShifters =  input(title="Strict trend-shift check (Risk: lowest)", type=input.bool, defval=false, tooltip = "take fewer chances")
 moreTrade =  input(title="take more opportunities (Risk: high)", type=input.bool, defval=false, tooltip = "more adjustments")
-offCheckpointbuy =  input(title="Off Checkpoint buy (Risk: very high)", type=input.bool, defval=false, tooltip = "buy anytime for balance")
+offCheckpointbuy =  input(title="Off Checkpoint buy (Risk: veyr high)", type=input.bool, defval=false, tooltip = "buy anytime for balance")
 offCheckpointSell =  input(title="Off Checkpoint sell", type=input.bool, defval=false, tooltip = "sell anytime if profitable")
 
 // Make input options that configure backtest date range
@@ -15,9 +15,13 @@ startYear = input(title="Start Year", type=input.integer, defval=2020, minval=18
 
 endDate = input(title="End Date", type=input.integer, defval=1, minval=1, maxval=31)
 endMonth = input(title="End Month", type=input.integer, defval=12, minval=1, maxval=12)
-endYear = input(title="End Year", type=input.integer, defval=2021, minval=1800, maxval=2100)
+endYear = input(title="End Year", type=input.integer, defval=2025, minval=1800, maxval=2100)
 inDateRange = time >= timestamp(syminfo.timezone, startYear, startMonth, startDate, 0, 0) and 
-   time < timestamp(syminfo.timezone, endYear, endMonth, endDate, 0, 0)
+   time < timestamp(syminfo.timezone, endYear, endMonth, endDate, 23, 59)
+
+//startDate = input(title="Start Date", type=input.time, defval=timestamp("01 Jan 2021 09:30 +0530"))
+//endDate = input(title="End Date", type=input.time, defval=timestamp("31 Dec 2025 03:30 +0530"))
+//inDateRange = time >= startDate and time <= endDate
 
 historic(series,days) =>
     security(syminfo.tickerid, "D", series[days], lookahead=barmerge.lookahead_on)
