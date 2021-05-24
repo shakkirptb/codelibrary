@@ -3,8 +3,10 @@ strategy(title="Weekly Magic", shorttitle="Weekly Magic", overlay=true)
 
 skipInterval =  input(title="Calculate for the whole time", type=input.bool, defval=true, tooltip = "ignore the time interval")
 ignoreSaturday =  input(title="Ignore Saturday", type=input.bool, defval=true, tooltip = "do not consider saturday as end of week")
-moreTrade =  input(title="Take more chances", type=input.bool, defval=false, tooltip = "more adjustments")
-offCheckpointbuy =  input(title="Off Checkpoint buy", type=input.bool, defval=false, tooltip = "buy anytime for balance")
+strictWithTrendShifters =  input(title="Strict trend-shift check (Risk: lowest)", type=input.bool, defval=false, tooltip = "take fewer chances")
+moreTrade =  input(title="take more opportunities (Risk: high)", type=input.bool, defval=false, tooltip = "more adjustments")
+offCheckpointbuy =  input(title="Off Checkpoint buy (Risk: very high)", type=input.bool, defval=false, tooltip = "buy anytime for balance")
+offCheckpointSell =  input(title="Off Checkpoint sell", type=input.bool, defval=false, tooltip = "sell anytime if profitable")
 
 // Make input options that configure backtest date range
 startDate = input(title="Start Date", type=input.integer, defval=1, minval=1, maxval=31)
@@ -93,11 +95,13 @@ closingDayOfWeek = isOpeningDayOfWeek ? dayofweek[1] : isTuesday ? dayofweek[2] 
 openingDayOfWeek = isOpeningDayOfWeek ? dayofweek : isTuesday ? dayofweek[1] : dayofweek.monday
 
 isBuyCheckpoint =  isClosingDayOfWeek// or (isOpeningDayOfWeek and closingDayOfWeek == dayofweek.thursday) 
-isSellCheckpoint = not isSaturday and not isMonday and not isTuesday and not(openingDayOfWeek == dayofweek.tuesday and isWednesday)
-moreBuyOpp = (isSeq(_red,_red,_red) or isSeq(_red,_green,_green)) and strategy.openprofit <= 0
+isSellCheckpoint = offCheckpointSell or (not isSaturday and not isMonday and not isTuesday and not(openingDayOfWeek == dayofweek.tuesday and isWednesday))
 
-bulling = (redRed and bullishCurve) or redToGreen or ((equalGreen)  and strategy.openprofit <= 0) or (moreTrade and moreBuyOpp)// and strategy.position_size == 0) //or equalGreen
-bearing = (greenGreen and bearishCurve) or greenToRed //or (candleColor == _green and strategy.openprofit > 0)//or redRed//or equalRed
+moreBuyOpp = (isSeq(_red,_red,_red) or isSeq(_red,_green,_green)) and strategy.openprofit <= 0
+//moreSellOpp = (isSeq(_green,_green,_green) or isSeq(_green,_red,_red)) and strategy.openprofit > 0
+
+bulling = (redRed and bullishCurve) or (redToGreen and (not strictWithTrendShifters or close0 > open1)) or ((equalGreen)  and strategy.openprofit <= 0) or (moreTrade and moreBuyOpp)// and strategy.position_size == 0) //or equalGreen
+bearing = (greenGreen and bearishCurve) or greenToRed// or (moreTrade and moreSellOpp) //or (candleColor == _green and strategy.openprofit > 0)//or redRed//or equalRed
 
 limit = historic(hl2,0)
 isSell = false
@@ -115,7 +119,7 @@ plotshape(isBuy,text="buy",location = location.bottom,color=#00cc00, style = sha
 
 plotColorRedGreen = strategy.openprofit > 0 ? #00aa00 : strategy.openprofit < 0 ? #cc0000 : color.black
 
-//plot(series = strategy.position_size, title = "position", color = #000055, linewidth =  2)
+//plot(series = strategy.position_size, title = "position", color = #550055, linewidth =  2)
 plot(series = strategy.openprofit, title = "open profit", color = plotColorRedGreen,linewidth =  2)
 //plot(series = strategy.netprofit, title = "net profit", color = #000055,linewidth =  2)
 
