@@ -1,5 +1,5 @@
 //@version=4
-strategy(title="Weekly Magic", shorttitle="Weekly Magic", overlay=true)
+strategy(title="Weekly Magic", shorttitle="Weekly Magic", overlay=true, default_qty_type = strategy.percent_of_equity, default_qty_value = 25)
 
 skipInterval =  input(title="Calculate for the whole time", type=input.bool, defval=true, tooltip = "ignore the time interval")
 ignoreSaturday =  input(title="Ignore Saturday", type=input.bool, defval=true, tooltip = "do not consider saturday as end of week")
@@ -24,7 +24,7 @@ inDateRange = time >= timestamp(syminfo.timezone, startYear, startMonth, startDa
 //inDateRange = time >= startDate and time <= endDate
 
 historic(series,days) =>
-    security(syminfo.tickerid, "D", series[days], lookahead=barmerge.lookahead_on)
+    security(syminfo.tickerid, "D", series[days],lookahead=barmerge.lookahead_on)
 
 open0 = historic(open,0)
 close0 = historic(close,0)
@@ -87,18 +87,18 @@ isThursday = dayofweek == dayofweek.thursday
 isFriday = dayofweek == dayofweek.friday
 isSaturday = dayofweek == dayofweek.saturday
 
+prevDay = historic(dayofweek,1)
+prevPrevDay = historic(dayofweek,2)
 
-
-
-wasMondayOff = isTuesday and dayofweek[1] != dayofweek.monday
+wasMondayOff = isTuesday and prevDay != dayofweek.monday
 isOpeningDayOfWeek = isMonday or wasMondayOff
-wasEndOfWeekOff = isOpeningDayOfWeek and (dayofweek[1] == dayofweek.thursday)
+wasEndOfWeekOff = isOpeningDayOfWeek and (prevDay == dayofweek.thursday)
 isClosingDayOfWeek = isFriday //or (ignoreSaturday and isSaturday)
 
-closingDayOfWeek = isOpeningDayOfWeek ? dayofweek[1] : isTuesday ? dayofweek[2] : dayofweek.friday
-openingDayOfWeek = isOpeningDayOfWeek ? dayofweek : isTuesday ? dayofweek[1] : dayofweek.monday
+closingDayOfWeek = isOpeningDayOfWeek ? prevDay : isTuesday ? prevPrevDay : dayofweek.friday
+openingDayOfWeek = isOpeningDayOfWeek ? dayofweek : isTuesday ? prevDay : dayofweek.monday
 
-isBuyCheckpoint =  isClosingDayOfWeek// or (isOpeningDayOfWeek and closingDayOfWeek == dayofweek.thursday) 
+isBuyCheckpoint =  isClosingDayOfWeek// or (isOpeningDayOfWeek and closingDayOfWeek == dayofweek.thursday and (time > historic(time_close,0))) 
 isSellCheckpoint = offCheckpointSell or (not isSaturday and not isMonday and not isTuesday and not(openingDayOfWeek == dayofweek.tuesday and isWednesday))
 
 moreBuyOpp = (isSeq(_red,_red,_red) or isSeq(_red,_green,_green)) and strategy.openprofit <= 0
@@ -110,13 +110,14 @@ bearing = (greenGreen and bearishCurve) or greenToRed// or (moreTrade and moreSe
 limit = historic(hl2,0)
 isSell = false
 isBuy = false
-if skipInterval or inDateRange
+
+if (skipInterval or inDateRange)
     if isSellCheckpoint and bearing
         isSell := strategy.openprofit > 0
         strategy.close_all(comment = "closed",when = strategy.openprofit > 0)
     if (isBuyCheckpoint and bulling) or (offCheckpointbuy and moreBuyOpp)
         isBuy:=true
-        strategy.order("buy", true,comment = "added")//add qty
+        strategy.order("buy", true,comment = "added",when = strategy.equity > close0)//add qty
 
 plotshape(isSell,text="sell",location = location.top,color=#cc0000, style = shape.triangledown)
 plotshape(isBuy,text="buy",location = location.bottom,color=#00cc00, style = shape.triangleup)
