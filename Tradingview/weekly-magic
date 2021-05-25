@@ -3,9 +3,10 @@ strategy(title="Weekly Magic", shorttitle="Weekly Magic", overlay=true, default_
 
 skipInterval =  input(title="Calculate for the whole time", type=input.bool, defval=true, tooltip = "ignore the time interval")
 ignoreSaturday =  input(title="Ignore Saturday", type=input.bool, defval=true, tooltip = "do not consider saturday as end of week")
-strictWithTrendShifters =  input(title="Strict trend-shift check (Risk: lowest)", type=input.bool, defval=false, tooltip = "take fewer chances")
-moreTrade =  input(title="take more opportunities (Risk: high)", type=input.bool, defval=false, tooltip = "more adjustments")
-offCheckpointbuy =  input(title="Off Checkpoint buy (Risk: veyr high)", type=input.bool, defval=false, tooltip = "buy anytime for balance")
+strictWithTrendShifters =  input(title="Strict trend-shift check (Risk: reduces)", type=input.bool, defval=false, tooltip = "take fewer chances,  fewer orders")
+closeOnlyWithProfit =  input(title="Close only with profit (Risk: increases)", type=input.bool, defval=true, tooltip = "close only when open orders are in profit, fewer closes")
+moreTrade =  input(title="take more opportunities (Risk: increases)", type=input.bool, defval=false, tooltip = "more adjustments, more orders")
+offCheckpointbuy =  input(title="Off Checkpoint buy (Risk: increases)", type=input.bool, defval=false, tooltip = "buy anytime for balance,  more orders")
 offCheckpointSell =  input(title="Off Checkpoint sell", type=input.bool, defval=false, tooltip = "sell anytime if profitable")
 
 // Make input options that configure backtest date range
@@ -113,8 +114,8 @@ isBuy = false
 
 if (skipInterval or inDateRange)
     if isSellCheckpoint and bearing
-        isSell := strategy.openprofit > 0
-        strategy.close_all(comment = "closed",when = strategy.openprofit > 0)
+        isSell := not closeOnlyWithProfit or strategy.openprofit >= 0
+        strategy.close_all(comment = "closed",when = isSell)
     if (isBuyCheckpoint and bulling) or (offCheckpointbuy and moreBuyOpp)
         isBuy:=true
         strategy.order("buy", true,comment = "added",when = strategy.equity > close0)//add qty
@@ -123,10 +124,11 @@ plotshape(isSell,text="sell",location = location.top,color=#cc0000, style = shap
 plotshape(isBuy,text="buy",location = location.bottom,color=#00cc00, style = shape.triangleup)
 
 plotColorRedGreen = strategy.openprofit > 0 ? #00aa00 : strategy.openprofit < 0 ? #cc0000 : color.black
+plotColorRedGreenNetProfit = strategy.netprofit > 0 ? #0000aa : strategy.netprofit < 0 ? #cc0000 : color.black
 
 //plot(series = strategy.position_size, title = "position", color = #550055, linewidth =  2)
-plot(series = strategy.openprofit, title = "open profit", color = plotColorRedGreen,linewidth =  2)
-//plot(series = strategy.netprofit, title = "net profit", color = #000055,linewidth =  2)
+plot(series = strategy.openprofit, title = "open profit", color = plotColorRedGreen,linewidth =  1)
+plot(series = strategy.netprofit, title = "net profit",color = plotColorRedGreenNetProfit,linewidth =  1)
 
 //paint the days of week
 c = color.black
