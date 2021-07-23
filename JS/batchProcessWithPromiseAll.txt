@@ -1,0 +1,56 @@
+
+async function runPages(name,time){
+    return new Promise((resolve)=>{
+        console.log("Page: " + name)
+        setTimeout(function(){
+            console.log("Page Finished: " + name)
+            resolve(name);
+        },time)
+    })
+}
+
+async function run(name,time){
+    console.log("Test: " + name)
+    await  runPages(name + "_page1",time);
+    await  runPages(name + "_page2",time);
+    await  runPages(name + "_page3",time);
+    await  runPages(name + "_page4",time);
+    console.log("Test Finished: " + name)
+    return Promise.resolve();
+}
+
+async function runBatch(name,batches){
+    return new Promise((resolve)=>{
+        console.log("Batch: " + name)
+        const runPromises = [];
+        for(let i=0;i<batches.length;i++){
+            let batch=batches[i];
+            runPromises.push(run(name+"_"+batch.name,batch.time));
+        }
+        Promise.all(runPromises).then((values) => {
+            console.log("Batch Finished: " + name)
+            resolve();
+        });
+    })
+}
+
+(async function(){
+    await runBatch("batch_1",[
+        {name:"test1",time:2000},
+        {name:"test2",time:3000},
+        {name:"test3",time:1000},
+        {name:"test4",time:2000}
+    ]);
+    await runBatch("batch_2",[
+        {name:"test1",time:2000},
+        {name:"test2",time:3000},
+        {name:"test3",time:1000},
+        {name:"test4",time:2000}
+    ]);
+    await runBatch("batch_3",[
+        {name:"test1",time:2000},
+        {name:"test2",time:3000},
+        {name:"test3",time:1000},
+        {name:"test4",time:2000}
+    ]);
+})();
